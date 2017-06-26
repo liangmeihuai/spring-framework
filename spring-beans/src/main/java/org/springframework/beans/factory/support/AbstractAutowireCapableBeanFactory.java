@@ -134,6 +134,18 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Dependency types to ignore on dependency check and autowire, as Set of
 	 * Class objects: for example, String. Default is none.
+	 *
+	 * 不是CGlib生成的属性类型,也不存在ignoredDependencyTypes(可配置的)集合中的属性类型，
+	 * 并且不是忽略接口(spring说是不能使用
+	 * springbean工厂中接口作为属性，比如BeanFactoryAware ApplicationContextAware)实现的属性中包含有的方法
+	 * 这里提及一下ignoreDependencyInterface()方法的主要功能是忽略给定接口的自动装配功能，那么这样坐的目的是什么呢？
+	 * 会产生什么样的效果呢
+
+	 举例来说，例如a中有属性b，那么当spring在获取a的bean的时候如果其
+	 属性b还没有初始化，那么spring会自动初始化b，这也是spring中提供的一个重要特性，但是某些情况下b不会被初始化，
+	 其中的一种情况就是b实现了beannameaware接口。spring中是这样介绍的：自动装配时忽略给定的依赖接口，
+	 典型的应用时通过其它方式解析applicatin上下文注册依赖，
+	 类似于beanfactory通过beanfactoryAware进行储蓄额或者appicationContext通过ApplicationContextAware进行注册
 	 */
 	private final Set<Class<?>> ignoredDependencyTypes = new HashSet<Class<?>>();
 

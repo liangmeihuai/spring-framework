@@ -77,8 +77,9 @@ public class AnnotatedElementUtilsTests {
 			attributes.get("value"));
 	}
 
+
 	@Test
-	public void getAnnotationAttributesOnClassWithLocalAnnotation() {
+	public void getAnnotationAttributesOnClassWithLocalAnnotation2() {
 		AnnotationAttributes attributes = getAnnotationAttributes(TxConfig.class, Transactional.class.getName());
 		assertNotNull("Annotation attributes for @Transactional on TxConfig", attributes);
 		assertEquals("value for TxConfig.", "TxConfig", attributes.getString("value"));

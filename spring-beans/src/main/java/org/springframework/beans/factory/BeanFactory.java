@@ -103,6 +103,17 @@ import org.springframework.beans.BeansException;
  * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessAfterInitialization
  * @see DisposableBean#destroy
  * @see org.springframework.beans.factory.support.RootBeanDefinition#getDestroyMethodName
+ *
+ *
+spring Ioc容器的实现，从根源上是beanfactory，
+但真正可以作为一个可以独立使用的ioc容器还是DefaultListableBeanFactory，因此可以这么说，
+DefaultListableBeanFactory 是整个spring ioc的始祖，研究透它的前生今世对我们理解spring ioc的概念有着重要的作用。
+DefaultListableBeanFactory功能的实现是通过实现特定功能的接口来完成。
+AbstractAutowireCapableBeanFactory 实现属性的自动绑定功能。
+ConfigurableListableBeanFactory提供了对bean定义的分析和修改的便利方法，同时也提供了对单例的预实例化。
+ListableBeanFactory提供枚举所有的bean实例，而不是客户端通过名称一个一个的查询得出所有的实例。
+
+BeanDefinitionRegistry 提供了beanDefinition的管理。
  */
 public interface BeanFactory {
 

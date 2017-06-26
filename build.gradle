@@ -245,6 +245,14 @@ project("spring-core") {
 
 	dependencies {
 		cglib("cglib:cglib:${cglibVersion}@jar")
+		// https://mvnrepository.com/artifact/junit/junit
+		testCompile group: 'junit', name: 'junit', version: '4.12'
+		// https://mvnrepository.com/artifact/org.mockito/mockito-all
+		testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+       // https://mvnrepository.com/artifact/org.mockito/mockito-core
+		testCompile group: 'org.mockito', name: 'mockito-core', version: '2.3.11'
+
+
 		objenesis("org.objenesis:objenesis:${objenesisVersion}@jar")
 		jarjar("com.googlecode.jarjar:jarjar:1.3")
 
@@ -291,6 +299,7 @@ project("spring-beans") {
 	}
 }
 
+/*
 project("spring-beans-groovy") {
 	description "Groovy Bean Definitions"
 	merge.into = project(":spring-beans")
@@ -315,7 +324,7 @@ project("spring-beans-groovy") {
 		sourceCompatibility=1.6
 		targetCompatibility=1.6
 	}
-}
+}*/
 
 project("spring-aop") {
 	description = "Spring AOP"
@@ -684,7 +693,7 @@ project("spring-orm") {
 		testCompile("org.slf4j:slf4j-jcl:${slf4jVersion}")
 	}
 }
-
+/*
 project("spring-orm-hibernate4") {
 	description = "Spring Object/Relational Mapping - Hibernate 4 support"
 	merge.into = project(":spring-orm")
@@ -698,7 +707,7 @@ project("spring-orm-hibernate4") {
 		optional("javax.servlet:javax.servlet-api:3.0.1")
 		optional("aopalliance:aopalliance:1.0")
 	}
-}
+}*/
 
 project("spring-webmvc") {
 	description = "Spring Web MVC"
@@ -774,7 +783,7 @@ project("spring-webmvc") {
 	// pick up DispatcherServlet.properties in src/main
 	sourceSets.main.resources.srcDirs += "src/main/java"
 }
-
+/*
 project("spring-webmvc-tiles3") {
 	description = "Spring Framework Tiles3 Integration"
 	merge.into = project(":spring-webmvc")
@@ -806,6 +815,7 @@ project("spring-webmvc-tiles3") {
 		testCompile("org.slf4j:slf4j-jcl:${slf4jVersion}")
 	}
 }
+*/
 
 project("spring-webmvc-portlet") {
 	description = "Spring Web Portlet"
