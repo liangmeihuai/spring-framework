@@ -111,7 +111,7 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>Typically applied to a
  * {@link org.springframework.beans.factory.support.DefaultListableBeanFactory}
- * or a {@link org.springframework.context.support.GenericApplicationContext},
+ //or a {@link org.springframework.context.support.GenericApplicationContext},
  * but can be used against any {@link BeanDefinitionRegistry} implementation.
  *
  * @author Jeff Brown
@@ -120,8 +120,8 @@ import org.springframework.util.ObjectUtils;
  * @since 4.0
  * @see BeanDefinitionRegistry
  * @see org.springframework.beans.factory.support.DefaultListableBeanFactory
- * @see org.springframework.context.support.GenericApplicationContext
- * @see org.springframework.context.support.GenericGroovyApplicationContext
+// * @see org.springframework.context.support.GenericApplicationContext
+// * @see org.springframework.context.support.GenericGroovyApplicationContext
  */
 public class GroovyBeanDefinitionReader extends AbstractBeanDefinitionReader implements GroovyObject {
 
@@ -366,8 +366,8 @@ public class GroovyBeanDefinitionReader extends AbstractBeanDefinitionReader imp
 			return new RuntimeBeanReference(refName, parentRef);
 		}
 		else if (this.namespaces.containsKey(name) && args.length > 0 && (args[0] instanceof Closure)) {
-			GroovyDynamicElementReader reader = createDynamicElementReader(name);
-			reader.invokeMethod("doCall", args);
+//			GroovyDynamicElementReader reader = createDynamicElementReader(name);
+//			reader.invokeMethod("doCall", args);
 		}
 		else if (args.length > 0 && args[0] instanceof Closure) {
 			// abstract bean definition
@@ -631,7 +631,8 @@ public class GroovyBeanDefinitionReader extends AbstractBeanDefinitionReader imp
 		}
 		else {
 			if (this.namespaces.containsKey(name)) {
-				return createDynamicElementReader(name);
+//				return createDynamicElementReader(name);
+				return  null;
 			}
 			if (getRegistry().containsBeanDefinition(name)) {
 				GroovyBeanDefinitionWrapper beanDefinition = (GroovyBeanDefinitionWrapper)
@@ -673,14 +674,15 @@ public class GroovyBeanDefinitionReader extends AbstractBeanDefinitionReader imp
 		if (!decorating) {
 			this.currentBeanDefinition = new GroovyBeanDefinitionWrapper(namespace);
 		}
-		return new GroovyDynamicElementReader(namespace, this.namespaces, delegate, this.currentBeanDefinition, decorating) {
-			@Override
-			protected void afterInvocation() {
-				if (!this.decorating) {
-					currentBeanDefinition = null;
-				}
-			}
-		};
+//		return new GroovyDynamicElementReader(namespace, this.namespaces, delegate, this.currentBeanDefinition, decorating) {
+//			@Override
+//			protected void afterInvocation() {
+//				if (!this.decorating) {
+//					currentBeanDefinition = null;
+//				}
+//			}
+//		};
+		return null;
 	}
 
 
