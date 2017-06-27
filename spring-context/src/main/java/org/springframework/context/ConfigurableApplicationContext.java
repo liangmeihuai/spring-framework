@@ -34,6 +34,8 @@ import org.springframework.core.env.Environment;
  * making them obvious to ApplicationContext client code. The present
  * methods should only be used by startup and shutdown code.
  *
+ * ConfigurableApplicationContext接口中定义了一些基本操作，比如设置上下文ID，设置父应用上下文，添加监听器和刷新容器相关的操作等。
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 03.11.2003
@@ -84,6 +86,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 
 	/**
 	 * Set the unique id of this application context.
+	 *  //设置上下文ID
 	 */
 	void setId(String id);
 
@@ -94,6 +97,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * for example in case of WebApplicationContext setup.
 	 * @param parent the parent context
 	 * @see org.springframework.web.context.ConfigurableWebApplicationContext
+	 * //设置父ApplicationContext
 	 */
 	void setParent(ApplicationContext parent);
 
@@ -126,6 +130,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * @param listener the ApplicationListener to register
 	 * @see org.springframework.context.event.ContextRefreshedEvent
 	 * @see org.springframework.context.event.ContextClosedEvent
+	 * //添加监听器
 	 */
 	void addApplicationListener(ApplicationListener<?> listener);
 
@@ -138,6 +143,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * @throws BeansException if the bean factory could not be initialized
 	 * @throws IllegalStateException if already initialized and multiple refresh
 	 * attempts are not supported
+	 * //在子类中实现创建容器
 	 */
 	void refresh() throws BeansException, IllegalStateException;
 
@@ -190,6 +196,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * @see #refresh()
 	 * @see #close()
 	 * @see #addBeanFactoryPostProcessor
+	 * 获取bean工厂
 	 */
 	ConfigurableListableBeanFactory getBeanFactory() throws IllegalStateException;
 
