@@ -106,7 +106,9 @@ public class PluggableSchemaResolver implements EntityResolver {
 			logger.trace("Trying to resolve XML entity with public id [" + publicId +
 					"] and system id [" + systemId + "]");
 		}
-
+		//meihuaiSystemOut
+		System.out.println("Trying to resolve XML entity with public id [" + publicId +
+				"] and system id [" + systemId + "]");
 		if (systemId != null) {
 			String resourceLocation = getSchemaMappings().get(systemId);
 			if (resourceLocation != null) {
@@ -118,6 +120,8 @@ public class PluggableSchemaResolver implements EntityResolver {
 					if (logger.isDebugEnabled()) {
 						logger.debug("Found XML schema [" + systemId + "] in classpath: " + resourceLocation);
 					}
+					//meihuaiSystemOut
+					System.out.println("Found XML schema [" + systemId + "] in classpath: " + resourceLocation);
 					return source;
 				}
 				catch (FileNotFoundException ex) {

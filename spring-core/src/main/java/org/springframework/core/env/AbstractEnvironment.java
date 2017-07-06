@@ -51,6 +51,10 @@ import static org.springframework.util.StringUtils.*;
  * @since 3.1
  * @see ConfigurableEnvironment
  * @see StandardEnvironment
+ *
+ * 该类实际上实现了以上接口的所有方法，且额外扩展了自定义属性源的入口：
+protected void customizePropertySources(MutablePropertySources propertySources);
+但是因为初始时属性源集合只是一个空集合，没有任何意义，因为该类定义为抽象基类，不能直接实例化使用。部分代码如下：
  */
 public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 
@@ -107,6 +111,9 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 
 	private Set<String> defaultProfiles = new LinkedHashSet<String>(getReservedDefaultProfiles());
 
+	/**
+	 * 可变属性源集合
+	 */
 	private final MutablePropertySources propertySources = new MutablePropertySources(this.logger);
 
 	private final ConfigurablePropertyResolver propertyResolver =

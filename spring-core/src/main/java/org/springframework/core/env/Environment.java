@@ -67,6 +67,29 @@ package org.springframework.core.env;
  * @see org.springframework.context.ConfigurableApplicationContext#getEnvironment
  * @see org.springframework.context.ConfigurableApplicationContext#setEnvironment
  * @see org.springframework.context.support.AbstractApplicationContext#createEnvironment
+ *
+ * 环境代表当前应用运行时所处的环境。
+
+整个应用环境模型包括2个关键方面：
+
+profiles配置组（以下简称组）：
+一个profile组，是一个以name名称命名的、逻辑上的、要被注册到容器中的BeanDefinition的集合。简单一点说，
+一个profile就代表一组BeanDefinition，这个对应配置文件中<beans profile="">。当加载解析xml配置文件的时候，
+只有active=true激活的BeanDefinition才会被加载进容器。
+
+properties环境变量：
+在几乎所有的应用中，Properties环境变量都扮演着非常重要的角色，
+且这些变量值可以来自于各种PropertySource属性源，如：properties文件、
+jvm虚拟机环境变量、操作系统环境变量、
+JNDI、Servlet上下文参数、自定义的属性对象、Map对象，等等。
+Environment环境对象为用户提供了方便的接口，用于配置和使用属性源。
+
+刚才提到环境模型具有2个关键方面：profiles和properties，从体系图中可以看出，properties方面的所有功能由PropertyResolver
+属性解决器来实现，环境模型只是通过装饰模式，在PropertyResolver功能的基础上，额外扩展出了profiles方面的功能。
+因此在接口方面，Environment继承自PropertyResolver，从实现类方面，AbstractEnvironment类内部持有一个
+PropertySourcesPropertyResolver类型对象的引用。
+
+关于PropertyResolver，我前边的文章已经进行了详细的解释，因此在本文中，我们重点关注环境模型在profiles方面的实现原理，体系图如下：
  */
 public interface Environment extends PropertyResolver {
 
@@ -82,6 +105,7 @@ public interface Environment extends PropertyResolver {
 	 * @see #getDefaultProfiles
 	 * @see ConfigurableEnvironment#setActiveProfiles
 	 * @see AbstractEnvironment#ACTIVE_PROFILES_PROPERTY_NAME
+	 * 获取当前环境对象激活的所有profile组。
 	 */
 	String[] getActiveProfiles();
 
@@ -91,6 +115,9 @@ public interface Environment extends PropertyResolver {
 	 * @see #getActiveProfiles
 	 * @see ConfigurableEnvironment#setDefaultProfiles
 	 * @see AbstractEnvironment#DEFAULT_PROFILES_PROPERTY_NAME
+	 * 获取默认的profile组。
+	 * 如果当前环境对象中激活的组为空（getActiveProfiles()返回空数组）的话，
+	 * 则会启用默认profile组。
 	 */
 	String[] getDefaultProfiles();
 
@@ -105,6 +132,13 @@ public interface Environment extends PropertyResolver {
 	 * or if any profile is {@code null}, empty or whitespace-only
 	 * @see #getActiveProfiles
 	 * @see #getDefaultProfiles
+	 *
+	 * 刚才提到环境模型具有2个关键方面：profiles和properties，从体系图中可以看出，properties方面的所有功能由PropertyResolver
+	 * 属性解决器来实现，环境模型只是通过装饰模式，在PropertyResolver功能的基础上，额外扩展出了profiles方面的功能。
+	 * 因此在接口方面，Environment继承自PropertyResolver，从实现类方面，
+	 * AbstractEnvironment类内部持有一个PropertySourcesPropertyResolver类型对象的引用。
+
+	   关于PropertyResolver，我前边的文章已经进行了详细的解释，因此在本文中，我们重点关注环境模型在profiles方面的实现原理，体系图如下：
 	 */
 	boolean acceptsProfiles(String... profiles);
 
