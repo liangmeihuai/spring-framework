@@ -9,21 +9,21 @@ import java.io.*;
 
 public class AnnotationTest {
     public static void main(String[] args) {
-        Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ApplicationContext context1 = new ClassPathXmlApplicationContext("applicationContext.xml");
-                try {
-                    Thread.sleep(5000);
-                    System.out.println("thread");
-                    Person person=context1.getBean("person", Person.class);
-                    System.out.println(person);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
+//        Thread thread=new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ApplicationContext context1 = new ClassPathXmlApplicationContext("applicationContext.xml");
+//                try {
+//                    Thread.sleep(5000);
+//                    System.out.println("thread");
+//                    Person person=context1.getBean("person", Person.class);
+//                    System.out.println(person);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        thread.start();
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         Person person=context.getBean("person", Person.class);
         System.out.println(person);

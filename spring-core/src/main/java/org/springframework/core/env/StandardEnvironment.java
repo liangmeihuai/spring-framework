@@ -50,13 +50,18 @@ package org.springframework.core.env;
  * @see ConfigurableEnvironment
  * @see SystemEnvironmentPropertySource
  * @see org.springframework.web.context.support.StandardServletEnvironment
+ * 该类定义了Spring应用运行时使用的标准环境，其实就是重写了customizePropertySources方法，
+ * 先后追加了jvm虚拟机环境变量属性源和操作系统环境变量属性源这两个属性源。当然对于特殊的spring运行环境，
+ * 我们可以创建标准环境的子类，以实现属性源的扩充，比如：StandardServletEnvironment类，用于web应用环境。
  */
 public class StandardEnvironment extends AbstractEnvironment {
 
 	/** System environment property source name: {@value} */
+	// 操作系统环境变量属性源的名称
 	public static final String SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME = "systemEnvironment";
 
 	/** JVM system properties property source name: {@value} */
+	// jvm虚拟机系统环境变量属性源的名称
 	public static final String SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME = "systemProperties";
 
 
@@ -75,7 +80,9 @@ public class StandardEnvironment extends AbstractEnvironment {
 	 */
 	@Override
 	protected void customizePropertySources(MutablePropertySources propertySources) {
+		// 追加虚拟机环境变量属性源
 		propertySources.addLast(new MapPropertySource(SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, getSystemProperties()));
+		// 追加操作系统环境变量属性源
 		propertySources.addLast(new SystemEnvironmentPropertySource(SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, getSystemEnvironment()));
 	}
 
