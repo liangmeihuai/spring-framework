@@ -34,8 +34,7 @@ import org.springframework.core.env.Environment;
  * making them obvious to ApplicationContext client code. The present
  * methods should only be used by startup and shutdown code.
  *
- * ConfigurableApplicationContext½Ó¿ÚÖĞ¶¨ÒåÁËÒ»Ğ©»ù±¾²Ù×÷£¬±ÈÈçÉèÖÃÉÏÏÂÎÄID£¬ÉèÖÃ¸¸Ó¦ÓÃÉÏÏÂÎÄ£¬Ìí¼Ó¼àÌıÆ÷ºÍË¢ĞÂÈİÆ÷Ïà¹ØµÄ²Ù×÷µÈ¡£
- *
+ * ConfigurableApplicationContextæ¥å£ä¸­å®šä¹‰äº†ä¸€äº›åŸºæœ¬æ“ä½œï¼Œæ¯”å¦‚è®¾ç½®ä¸Šä¸‹æ–‡IDï¼Œè®¾ç½®çˆ¶åº”ç”¨ä¸Šä¸‹æ–‡ï¼Œæ·»åŠ ç›‘å¬å™¨å’Œåˆ·æ–°å®¹å™¨ç›¸å…³çš„æ“ä½œç­‰ã€‚
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 03.11.2003
@@ -86,7 +85,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 
 	/**
 	 * Set the unique id of this application context.
-	 *  //ÉèÖÃÉÏÏÂÎÄID
+	 *  //è®¾ç½®ä¸Šä¸‹æ–‡ID
 	 */
 	void setId(String id);
 
@@ -97,7 +96,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * for example in case of WebApplicationContext setup.
 	 * @param parent the parent context
 	 * @see org.springframework.web.context.ConfigurableWebApplicationContext
-	 * //ÉèÖÃ¸¸ApplicationContext
+	 * //è®¾ç½®çˆ¶ApplicationContext
 	 */
 	void setParent(ApplicationContext parent);
 
@@ -130,7 +129,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * @param listener the ApplicationListener to register
 	 * @see org.springframework.context.event.ContextRefreshedEvent
 	 * @see org.springframework.context.event.ContextClosedEvent
-	 * //Ìí¼Ó¼àÌıÆ÷
+	 * //æ·»åŠ ç›‘å¬å™¨
 	 */
 	void addApplicationListener(ApplicationListener<?> listener);
 
@@ -143,7 +142,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * @throws BeansException if the bean factory could not be initialized
 	 * @throws IllegalStateException if already initialized and multiple refresh
 	 * attempts are not supported
-	 * //ÔÚ×ÓÀàÖĞÊµÏÖ´´½¨ÈİÆ÷
+	 * //åœ¨å­ç±»ä¸­å®ç°åˆ›å»ºå®¹å™¨
 	 */
 	void refresh() throws BeansException, IllegalStateException;
 
@@ -196,7 +195,7 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * @see #refresh()
 	 * @see #close()
 	 * @see #addBeanFactoryPostProcessor
-	 * »ñÈ¡bean¹¤³§
+	 *  //è·å–Beanå·¥å‚
 	 */
 	ConfigurableListableBeanFactory getBeanFactory() throws IllegalStateException;
 
