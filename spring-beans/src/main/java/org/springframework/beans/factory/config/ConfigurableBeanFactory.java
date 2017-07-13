@@ -46,33 +46,123 @@ import org.springframework.util.StringValueResolver;
  * @see org.springframework.beans.factory.BeanFactory
  * @see org.springframework.beans.factory.ListableBeanFactory
  * @see ConfigurableListableBeanFactory
- *
- *
- *
- * ×Ü½áÒ»ÏÂ£¬ÎÒÏÖ½×¶ÎÄÜ¿´¶®µÄ²¿·Ö£º
+ * æ­¤æ¥å£å®šä¹‰äº†BeanFactoryçš„æ‰©é…ç½®åŠŸèƒ½ï¼Œå‡ ä¹æ‰€æœ‰çš„beanFactoryéƒ½ä¼šå®ç°è¿™ä¸ªæ¥å£ã€‚
+åŒæ ·ï¼Œæ­¤æ¥å£ä¹Ÿä¸æ¨èåœ¨å¸¸è§çš„åº”ç”¨ä»£ç ä¸­ä½¿ç”¨ï¼ˆè¿˜æ˜¯æ¨èä½¿ç”¨BeanFactoryå’ŒListableBeanFactoryï¼‰ã€‚
+è¿™ä¸ªæ¥å£ä¹Ÿèµ‹äºˆäº†BeanFactoryå¯æ‰©å±•çš„åŠŸèƒ½ï¼Œ
 
-1.Ê×ÏÈÊÇÁ½¸ö×÷ÓÃÁìÓò¶ÔÏó£¬ÅĞ¶ÏÊÇ·ñÎªsingleton,µ¥Àı»¹ÊÇPrototype£¬Ô­ĞÍ¡£Ó¦ÓÃÓÚ·½·¨registerScope¡£ÕâÁ½¸öÓĞÉ¶Çø±ğ£¿£¿
+é™„å½•--ConfigureableBeanFactoryä¸­å®šä¹‰çš„api:
 
-1¡£ µ±Ò»¸öbeanµÄ×÷ÓÃÓòÉèÖÃÎªsingleton, ÄÇÃ´Spring IOCÈİÆ÷ÖĞÖ»»á´æÔÚÒ»¸ö¹²ÏíµÄbeanÊµÀı£¬
-²¢ÇÒËùÓĞ¶ÔbeanµÄÇëÇó£¬Ö»ÒªidÓë¸Ãbean¶¨ÒåÏàÆ¥Åä£¬ÔòÖ»»á·µ»ØbeanµÄÍ¬Ò»ÊµÀı¡£»»ÑÔÖ®£¬
-µ±°ÑÒ»¸öbean¶¨ÒåÉèÖÃÎªsingleton×÷ÓÃÓòÊ±£¬Spring IOCÈİÆ÷Ö»»á´´½¨¸Ãbean¶¨ÒåµÄÎ¨Ò»ÊµÀı¡£
-Õâ¸öµ¥Ò»ÊµÀı»á±»´æ´¢µ½µ¥Àı»º´æ£¨singleton cache£©ÖĞ£¬²¢ÇÒËùÓĞÕë¶Ô¸ÃbeanµÄºóĞøÇëÇóºÍÒıÓÃ¶¼½«·µ»Ø±»»º´æµÄ¶ÔÏóÊµÀı£¬
-ÕâÀïÒª×¢ÒâµÄÊÇsingleton×÷ÓÃÓòºÍGOFÉè¼ÆÄ£Ê½ÖĞµÄµ¥ÀıÊÇÍêÈ«²»Í¬µÄ£¬µ¥ÀıÉè¼ÆÄ£Ê½±íÊ¾Ò»¸öClassLoaderÖĞÖ»ÓĞÒ»¸öclass´æÔÚ£¬
-¶øÕâÀïµÄsingletonÔò±íÊ¾Ò»¸öÈİÆ÷¶ÔÓ¦Ò»¸öbean£¬Ò²¾ÍÊÇËµµ±Ò»¸öbean±»±êÊ¶ÎªsingletonÊ±ºò£¬springµÄIOCÈİÆ÷ÖĞÖ»»á´æÔÚÒ»¸ö¸Ãbean¡£
+ã€€ã€€a, çˆ¶å®¹å™¨è®¾ç½®.è€Œä¸”ä¸€æ—¦è®¾ç½®äº†å°±ä¸è®©ä¿®æ”¹
 
-2¡£ prototype×÷ÓÃÓò²¿ÊğµÄbean£¬Ã¿Ò»´ÎÇëÇó£¨½«Æä×¢Èëµ½ÁíÒ»¸öbeanÖĞ£¬»òÕßÒÔ³ÌĞòµÄ·½Ê½µ÷ÓÃÈİÆ÷µÄgetBean()·½·¨£©
-¶¼»á²úÉúÒ»¸öĞÂµÄbeanÊµÀı£¬Ïàµ±ÓëÒ»¸önewµÄ²Ù×÷£¬¶ÔÓÚprototype×÷ÓÃÓòµÄbean£¬ÓĞÒ»µã·Ç³£ÖØÒª£¬ÄÇ¾ÍÊÇSpring²»ÄÜ¶ÔÒ»
-¸öprototype beanµÄÕû¸öÉúÃüÖÜÆÚ¸ºÔğ£¬ÈİÆ÷ÔÚ³õÊ¼»¯¡¢ÅäÖÃ¡¢×°ÊÎ»òÕßÊÇ×°ÅäÍêÒ»¸öprototypeÊµÀıºó£¬½«Ëü½»¸ø¿Í»§¶Ë£¬
-Ëæºó¾Í¶Ô¸ÃprototypeÊµÀı²»ÎÅ²»ÎÊÁË¡£²»¹ÜºÎÖÖ×÷ÓÃÓò£¬ÈİÆ÷¶¼»áµ÷ÓÃËùÓĞ¶ÔÏóµÄ³õÊ¼»¯ÉúÃüÖÜÆÚ»Øµ÷·½·¨£¬¶ø¶Ôprototype¶øÑÔ
-£¬ÈÎºÎÅäÖÃºÃµÄÎö¹¹ÉúÃüÖÜÆÚ»Øµ÷·½·¨¶¼½«²»»á±»µ÷ÓÃ¡£Çå³ıprototype×÷ÓÃÓòµÄ¶ÔÏó²¢ÊÍ·ÅÈÎºÎprototype beanËù³ÖÓĞµÄ°º¹ó×ÊÔ´£¬
-¶¼ÊÇ¿Í»§¶Ë´úÂëµÄÖ°Ôğ¡££¨ÈÃSpringÈİÆ÷ÊÍ·Å±»singleton×÷ÓÃÓòbeanÕ¼ÓÃ×ÊÔ´µÄÒ»ÖÖ¿ÉĞĞ·½Ê½ÊÇ£¬Í¨¹ıÊ¹ÓÃbeanµÄºóÖÃ´¦ÀíÆ÷£¬
-¸Ã´¦ÀíÆ÷³ÖÓĞÒª±»Çå³ıµÄbeanµÄÒıÓÃ¡££©
+ã€€ã€€ã€€ã€€void setParentBeanFactory(BeanFactory parentBeanFactory) throws IllegalStateException;
 
-²Î¿¼ÄÚÈİ
+ã€€ã€€b, ç±»åŠ è½½å™¨è®¾ç½®ä¸è·å–.é»˜è®¤ä½¿ç”¨å½“å‰çº¿ç¨‹ä¸­çš„ç±»åŠ è½½å™¨
 
-2.µÚ¶ş¸ö¾ÍÊÇsetParentBeanFactory,Õâ¸ö·½·¨ºóÃæ»á±»´óÁ¿Ê¹ÓÃ¡£¶ÔÓ¦ÓÚgetParentBeanFactory¡£
+ã€€ã€€ã€€ã€€void setBeanClassLoader(ClassLoader beanClassLoader);
 
-3.»¹ÓĞÒ»Ğ©´¦ÀíÆ÷µÄÅäÖÃ£¬ÖØµã¹Ø×¢ºó´¦ÀíÆ÷ÅäÖÃ£¬addBeanPostProcessorÒÔ¼°ClassLoaderÅäÖÃ£¬setBeanClassLoader¡£
+ã€€ã€€ã€€ã€€ClassLoader getBeanClassLoader();
+
+ã€€ã€€c, ä¸ºäº†ç±»å‹åŒ¹é…,æä¸ªä¸´æ—¶ç±»åŠ è½½å™¨.å¥½åœ¨ä¸€èˆ¬æƒ…å†µä¸ºnull,ä½¿ç”¨ä¸Šé¢å®šä¹‰çš„æ ‡å‡†åŠ è½½å™¨ã€€ã€€
+
+ã€€ã€€ã€€ã€€void setTempClassLoader(ClassLoader tempClassLoader);
+
+ã€€ã€€ã€€ã€€ClassLoader getTempClassLoader();
+
+ã€€ã€€d, æ˜¯å¦éœ€è¦ç¼“å­˜bean metadata,æ¯”å¦‚bean difinition å’Œ è§£æå¥½çš„classes.é»˜è®¤å¼€å¯ç¼“å­˜
+
+ã€€ã€€ã€€ã€€void setCacheBeanMetadata(boolean cacheBeanMetadata);
+
+ã€€ã€€ã€€ã€€boolean isCacheBeanMetadata();
+
+ã€€ã€€e, å®šä¹‰ç”¨äºè§£æbean definitionçš„è¡¨è¾¾å¼è§£æå™¨
+
+ã€€ã€€ã€€ã€€void setBeanExpressionResolver(BeanExpressionResolver resolver);
+
+ã€€ã€€ã€€ã€€BeanExpressionResolver getBeanExpressionResolver();
+
+ã€€ã€€f, ç±»å‹è½¬åŒ–å™¨
+
+ã€€ã€€ã€€ã€€void setConversionService(ConversionService conversionService);
+
+ã€€ã€€ã€€ã€€ConversionService getConversionService();
+
+ã€€ã€€g, å±æ€§ç¼–è¾‘å™¨
+
+ã€€ã€€ã€€ã€€void addPropertyEditorRegistrar(PropertyEditorRegistrar registrar);
+
+ã€€ã€€ã€€ã€€void registerCustomEditor(Class<?> requiredType, Class<? extends PropertyEditor> propertyEditorClass);
+
+ã€€ã€€ã€€ã€€void copyRegisteredEditorsTo(PropertyEditorRegistry registry);
+
+ã€€ã€€h, BeanFactoryç”¨æ¥è½¬æ¢beanå±æ€§å€¼æˆ–è€…å‚æ•°å€¼çš„è‡ªå®šä¹‰è½¬æ¢å™¨
+
+ã€€ã€€ã€€ã€€void setTypeConverter(TypeConverter typeConverter);
+
+ã€€ã€€ã€€ã€€TypeConverter getTypeConverter();
+
+ã€€ã€€i,stringå€¼è§£æå™¨(æƒ³èµ·mvcä¸­çš„ArgumentResolveräº†)
+
+ã€€ã€€ã€€ã€€void addEmbeddedValueResolver(StringValueResolver valueResolver);
+
+ã€€ã€€ã€€ã€€String resolveEmbeddedValue(String value);
+
+ã€€ã€€j,å¤§boss BeanPostProcessorç”¨äºå¢å¼ºbeanåˆå§‹åŒ–åŠŸèƒ½
+
+ã€€ã€€ã€€ã€€void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
+
+ã€€ã€€ã€€ã€€int getBeanPostProcessorCount();ã€€ã€€ã€€ã€€
+
+ã€€ã€€k,ä½œç”¨åŸŸå®šä¹‰
+
+ã€€ã€€ã€€ã€€void registerScope(String scopeName, Scope scope);
+
+ã€€ã€€ã€€ã€€String[] getRegisteredScopeNames();
+
+ã€€ã€€ã€€ã€€Scope getRegisteredScope(String scopeName);
+
+ã€€ã€€l,è®¿é—®æƒé™æ§åˆ¶
+
+ã€€ã€€ã€€ã€€AccessControlContext getAccessControlContext();
+
+ã€€ã€€m, åˆå¹¶å…¶ä»–ConfigurableBeanFactoryçš„é…ç½®,åŒ…æ‹¬ä¸Šé¢è¯´åˆ°çš„BeanPostProcessor,ä½œç”¨åŸŸç­‰
+
+ã€€ã€€ã€€ã€€void copyConfigurationFrom(ConfigurableBeanFactory otherFactory);
+
+ã€€ã€€n, beanå®šä¹‰å¤„ç†
+
+ã€€ã€€ã€€ã€€void registerAlias(String beanName, String alias) throws BeanDefinitionStoreException; // æ³¨å†Œåˆ«å
+
+ã€€ã€€ã€€ã€€void resolveAliases(StringValueResolver valueResolver);
+
+ã€€ã€€ã€€ã€€BeanDefinition getMergedBeanDefinition(String beanName) throws NoSuchBeanDefinitionException; // åˆå¹¶beanå®šä¹‰,åŒ…æ‹¬çˆ¶å®¹å™¨çš„
+
+ã€€ã€€ã€€ã€€boolean isFactoryBean(String name) throws NoSuchBeanDefinitionException; // æ˜¯å¦æ˜¯FactoryBeanç±»å‹
+
+ã€€ã€€o, beanåˆ›å»ºçŠ¶æ€æ§åˆ¶.åœ¨è§£å†³å¾ªç¯ä¾èµ–æ—¶æœ‰ä½¿ç”¨
+
+ã€€ã€€ã€€ã€€void setCurrentlyInCreation(String beanName, boolean inCreation);
+
+ã€€ã€€ã€€ã€€boolean isCurrentlyInCreation(String beanName);
+
+ã€€ã€€p, å¤„ç†beanä¾èµ–é—®é¢˜
+
+ã€€ã€€ã€€ã€€void registerDependentBean(String beanName, String dependentBeanName);
+
+ã€€ã€€ã€€ã€€String[] getDependentBeans(String beanName);
+
+ã€€ã€€ã€€ã€€String[] getDependenciesForBean(String beanName);
+
+ã€€ã€€q, beanç”Ÿå‘½å‘¨æœŸç®¡ç†-- é”€æ¯bean
+
+ã€€ã€€ã€€ã€€void destroyBean(String beanName, Object beanInstance);
+
+ã€€ã€€ã€€ã€€void destroyScopedBean(String beanName);
+
+ã€€ã€€ã€€ã€€void destroySingletons();
+
+
+
+
  */
 public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, SingletonBeanRegistry {
 

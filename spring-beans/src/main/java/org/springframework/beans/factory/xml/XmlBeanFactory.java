@@ -50,11 +50,6 @@ import org.springframework.core.io.Resource;
  * @deprecated as of Spring 3.1 in favor of {@link DefaultListableBeanFactory} and
  * {@link XmlBeanDefinitionReader}
  *
- * * XmlBeanFactoryÊÇBeanFactoryµÄ×î¼òµ¥ÊµÏÖÀà
- *
- * XmlBeanFactoryµÄ¹¦ÄÜÊÇ½¨Á¢ÔÚDefaultListableBeanFactoryÕâ¸ö»ù±¾ÈİÆ÷µÄ»ù´¡ÉÏµÄ£¬²¢ÔÚÕâ¸ö»ù±¾ÈİÆ÷µÄ»ù´¡ÉÏÊµĞĞÁËÆäËûÖîÈç
- * XML¶ÁÈ¡µÄ¸½¼Ó¹¦ÄÜ¡£XmlBeanFactoryÊ¹ÓÃÁËDefaultListableBeanFactory×÷Îª»ù´¡Àà£¬DefaultListableBeanFactoryÊÇÒ»¸öºÜÖØ
- * ÒªµÄIocÊµÏÖ£¬»áÔÚÏÂÒ»ÕÂ½øĞĞÖØµãÂÛÊö¡£
  */
 @Deprecated
 @SuppressWarnings({"serial", "all"})
@@ -69,10 +64,10 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	 * @param resource XML resource to load bean definitions from
 	 * @throws BeansException in case of loading or parsing errors
 	 *
-	 * * ¸ù¾İ¸ø¶¨À´Ô´£¬´´½¨Ò»¸öXmlBeanFactory
-	 * @param resource  SpringÖĞ¶ÔÓëÍâ²¿×ÊÔ´µÄ³éÏó£¬×î³£¼ûµÄÊÇ¶ÔÎÄ¼şµÄ³éÏó£¬ÌØ±ğÊÇXMLÎÄ¼ş¡£¶øÇÒResourceÀïÃæÍ¨³£
-	 * ÊÇ±£´æÁËSpringÊ¹ÓÃÕßµÄBean¶¨Òå£¬±ÈÈçapplicationContext.xmlÔÚ±»¼ÓÔØÊ±£¬¾Í»á±»³éÏóÎªResourceÀ´´¦Àí¡£
-	 * @throws BeansException ÔØÈë»òÕß½âÎöÖĞ·¢Éú´íÎó
+	 * * ï¿½ï¿½ï¿½İ¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½XmlBeanFactory
+	 * @param resource  Springï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½Ô´ï¿½Ä³ï¿½ï¿½ï¿½ï¿½î³£ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½Ä¼ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½XMLï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Resourceï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+	 * ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½SpringÊ¹ï¿½ï¿½ï¿½ßµï¿½Beanï¿½ï¿½ï¿½å£¬ï¿½ï¿½ï¿½ï¿½applicationContext.xmlï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Í»á±»ï¿½ï¿½ï¿½ï¿½ÎªResourceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @throws BeansException ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public XmlBeanFactory(Resource resource) throws BeansException {
 		this(resource, null);

@@ -35,6 +35,44 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
  * @author Juergen Hoeller
  * @since 03.11.2003
  * @see org.springframework.context.support.AbstractApplicationContext#getBeanFactory()
+ *
+ *
+ * 6. ConfigurableListableBeanFactory
+
+提供bean definition的解析,注册功能,再对单例来个预加载(解决循环依赖问题).
+
+貌似我们一般开发就会直接定义这么个接口了事.而不是像Spring这样先根据使用情况细分那么多,到这边再合并
+
+
+
+　　a, 设置忽略的依赖关系,注册找到的特殊依赖
+
+　　　　void ignoreDependencyType(Class<?> type); // 忽略类型
+
+　　　　void ignoreDependencyInterface(Class<?> ifc); // 忽略接口
+
+　　　　void registerResolvableDependency(Class<?> dependencyType, Object autowiredValue);
+
+　　　　boolean isAutowireCandidate(String beanName, DependencyDescriptor descriptor)
+       throws NoSuchBeanDefinitionException;
+
+　　b, 获取bean定义 (可以访问属性值跟构造方法的参数值)
+
+　　　　BeanDefinition getBeanDefinition(String beanName) throws NoSuchBeanDefinitionException;
+
+　　c, 锁定配置信息.在调用refresh时会使用到.
+
+　　　　void freezeConfiguration();
+
+　　　　boolean isConfigurationFrozen();
+
+　　d, 预加载不是懒加载的单例.用于解决循环依赖问题
+
+　　　　void preInstantiateSingletons() throws BeansException;
+
+ConfigurableListableBeanFactory
+又是可配置，又是Listable的BeanFactory，就可以实现这个接口。除了ConfigurableBeanFactory的功能之外，
+它还提供了访问和修改BeanDefinition，预实例化singletons。
  */
 public interface ConfigurableListableBeanFactory
 		extends ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory {
