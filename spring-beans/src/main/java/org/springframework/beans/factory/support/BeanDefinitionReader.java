@@ -31,7 +31,10 @@ import org.springframework.core.io.ResourceLoader;
  * <p>Note that a bean definition reader does not have to implement
  * this interface. It only serves as suggestion for bean definition
  * readers that want to follow standard naming conventions.
- *
+ *BeanDefinitionRegistry接口一次只能注册一个BeanDefinition，而且只能自己构造BeanDefinition类来注册。
+ * BeanDefinitionReader解决了这些问题，它一般可以使用一个BeanDefinitionRegistry构造，然后通过#loadBeanDefinitions（..）
+ * 等方法，把“配置源”转化为多个BeanDefinition并注册到BeanDefinitionRegistry中 。
+ 可以说BeanDefinitionReader帮助BeanDefinitionRegistry实现了高效、方便的注册BeanDefinition。
  * @author Juergen Hoeller
  * @since 1.1
  * @see org.springframework.core.io.Resource
@@ -42,6 +45,7 @@ public interface BeanDefinitionReader {
 	 * Return the bean factory to register the bean definitions with.
 	 * <p>The factory is exposed through the BeanDefinitionRegistry interface,
 	 * encapsulating the methods that are relevant for bean definition handling.
+	 * 获取BeanDefinitionRegistry
 	 */
 	BeanDefinitionRegistry getRegistry();
 
@@ -75,6 +79,7 @@ public interface BeanDefinitionReader {
 	/**
 	 * Return the BeanNameGenerator to use for anonymous beans
 	 * (without explicit bean name specified).
+	 * 获取Bean的名称生成器
 	 */
 	BeanNameGenerator getBeanNameGenerator();
 
@@ -84,6 +89,7 @@ public interface BeanDefinitionReader {
 	 * @param resource the resource descriptor
 	 * @return the number of bean definitions found
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
+	 * 载入BeanDefinition
 	 */
 	int loadBeanDefinitions(Resource resource) throws BeanDefinitionStoreException;
 
@@ -92,6 +98,7 @@ public interface BeanDefinitionReader {
 	 * @param resources the resource descriptors
 	 * @return the number of bean definitions found
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
+	 * 载入BeanDefinition
 	 */
 	int loadBeanDefinitions(Resource... resources) throws BeanDefinitionStoreException;
 
@@ -106,6 +113,7 @@ public interface BeanDefinitionReader {
 	 * @see #getResourceLoader()
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource)
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
+	 * 载入BeanDefinition
 	 */
 	int loadBeanDefinitions(String location) throws BeanDefinitionStoreException;
 
@@ -115,6 +123,7 @@ public interface BeanDefinitionReader {
 	 * (or ResourcePatternResolver) of this bean definition reader
 	 * @return the number of bean definitions found
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
+	 * 载入BeanDefinition
 	 */
 	int loadBeanDefinitions(String... locations) throws BeanDefinitionStoreException;
 

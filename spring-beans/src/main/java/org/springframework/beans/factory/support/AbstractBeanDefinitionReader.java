@@ -38,6 +38,11 @@ import org.springframework.util.Assert;
  * <p>Provides common properties like the bean factory to work on
  * and the class loader to use for loading bean classes.
  *
+ * AbstractBeanDefinitionReader：实现了EnvironmentCapable，提供了获取/设置环境的方法。定义了一些通用方法，使用策略模式，
+ * 将一些具体方法放到子类实现。
+ XmlBeanDefinitionReader：读取XML文件定义的BeanDefinition
+ PropertiesBeanDefinitionReader：可以从属性文件，Resource，Property对象等读取BeanDefinition
+ GroovyBeanDefinitionReader：可以读取Groovy语言定义的Bean
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 11.12.2003
@@ -101,6 +106,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	public final BeanDefinitionRegistry getBeanFactory() {
 		return this.registry;
 	}
+
 
 	@Override
 	public final BeanDefinitionRegistry getRegistry() {

@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2002-2012 the original author or authors.
  *
@@ -35,6 +36,11 @@ import org.springframework.util.StringUtils;
  * @see org.springframework.beans.factory.BeanNameAware
  * @see org.springframework.beans.factory.support.RootBeanDefinition
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
+ */
+
+/**
+ * BeanDefinitionHolder持有一个BeanDefinition，名称，和别名数组。在Spring内部，它用来临时保存BeanDefinition来传递BeanDefinition。
+ 它的部分方法如下：
  */
 public class BeanDefinitionHolder implements BeanMetadataElement {
 

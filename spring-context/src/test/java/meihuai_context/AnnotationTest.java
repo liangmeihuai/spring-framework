@@ -107,4 +107,25 @@ public class AnnotationTest {
         }
 
     }
+
+    @Test
+    public void testOpningTag(){
+        String content1="!A11233232<";
+        String content2="<A11233232>";
+        String content3="<A11233232";
+
+        System.out.print(hasOpeningTag(content1));
+        System.out.print(hasOpeningTag(content2));
+        System.out.print(hasOpeningTag(content3));
+
+    }
+
+    private boolean hasOpeningTag(String content) {
+        int openTagIndex = content.indexOf('<');
+        return (openTagIndex > -1 && (content.length() > openTagIndex + 1) &&
+                Character.isLetter(content.charAt(openTagIndex + 1)));
+
+//        return (openTagIndex > -1  &&
+//                Character.isLetter(content.charAt(openTagIndex + 1)));
+    }
 }

@@ -96,6 +96,7 @@ public final class BeanWrapperTests {
 	public void testNullNestedTypeDescriptorWithNoConversionService() {
 		Foo foo = new Foo();
 		BeanWrapperImpl wrapper = new BeanWrapperImpl(foo);
+//		wrapper.setAutoGrowNestedPaths(true);
 		wrapper.setAutoGrowNestedPaths(true);
 		wrapper.setPropertyValue("listOfMaps[0]['luckyNumber']", "9");
 		assertEquals("9", foo.listOfMaps.get(0).get("luckyNumber"));

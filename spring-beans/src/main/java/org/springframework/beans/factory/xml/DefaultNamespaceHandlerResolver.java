@@ -151,6 +151,7 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 			synchronized (this) {
 				if (this.handlerMappings == null) {
 					try {
+						System.out.println("getHandlerMappingsbefore create bena1111 load this.handlerMappingsLocation=" + this.handlerMappingsLocation);
 						Properties mappings =
 								PropertiesLoaderUtils.loadAllProperties(this.handlerMappingsLocation, this.classLoader);
 						if (logger.isDebugEnabled()) {
