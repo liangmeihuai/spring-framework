@@ -26,10 +26,11 @@ import org.springframework.core.env.Environment;
 
 /**
  * SPI interface to be implemented by most if not all application contexts.
+ * SPI接口由大多数（如果不是全部）应用程序上下文实现
  * Provides facilities to configure an application context in addition
  * to the application context client methods in the
  * {@link org.springframework.context.ApplicationContext} interface.
- *
+ *提供配置应用程序上下文的功能,以及配置application context 接口的客户端方法的功能
  * <p>Configuration and lifecycle methods are encapsulated here to avoid
  * making them obvious to ApplicationContext client code. The present
  * methods should only be used by startup and shutdown code.

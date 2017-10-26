@@ -448,16 +448,26 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
+			// 容器预先准备，记录容器启动时间和标志
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			// 主要是创建beanFactory，同时加载配置文件.xml中的beanDefinition
+			// 通过String[] configLocations = getConfigLocations()获取资源路径，然后加载beanDefinition
+			// 创建bean工厂，如果已经有则销毁，没有则创建
+			// 里面实现对beandefinition的装载
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			// 给beanFactory注册一些标准组建，如ClassLoader，StandardEnvironment，BeanProcess
+			// 创建bean工厂的标准上下文特性，如类装载器，postProcessor等
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				// 提供给子类实现一些postProcess的注册，如AbstractRefreshableWebApplicationContext注册一些Servlet相关的
+				// postProcess，真对web进行生命周期管理的Scope，通过registerResolvableDependency()
+				// 方法注册指定ServletRequest，HttpSession，WebRequest对象的工厂方法
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
@@ -506,7 +516,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void prepareRefresh() {
 		this.startupDate = System.currentTimeMillis();
-
+		// 他在改状态的时候用activeMonitor加了锁，并且改了active的状态为true,作者这么写的用意一定是为了
+		// 让active在后续的某个操作或某个判断中去使用，既然active = true是在容器启动的开始时改的，
+		// 那么后续肯定是在一些需要判断容器是否启动了来的地方使用，
+		// 我们可以认为它是容器的激活状态，后续在任何修改容器的激活状态的地方，也一定会用activeMonitor来加锁
 		synchronized (this.activeMonitor) {
 			this.active = true;
 		}
@@ -516,6 +529,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment
+		// 初始化propertySources,主意哈，这个propertySources不是一堆propertySource啊，而是一个容器
+		// spring里有两个概念，一个是propertySource,一个是propertySources,后者不是简单的表示一堆前者，
+		// 而是表示一个存放前者的容器。我之前也在强调，spring里有很多名词，我们都需要去熟悉它们，知道它们是干什么的。
+		//  这里稍微偏移了扩展一下，我们看看propertySource和PropertySources的源码
+		// 从泛型和构造我们可以大致了解，propertySource,是一个用来存放property的keyValue的实体，构造表示
+		// ，我拿任意类型的对象进来，都可以设置一个key,存在成员name上，然后把对象存放在成员source上，是不是很像一个Map.Entry<String,Object>对象呢。
+		// 这里稍微需要了解下他有2个静态内部类StubPropertySource和ComparisonPropertySource
+		// StubPropertySource是Property的子类，用于充当存根，它的注释中提到实际的PropertySource的初始化工作，
+		// 不能在容器创建之前进行，所以用存根来充当一个占位符，他用来占用一个预期的propertySource位置，等容器refresh的时候用来进行替换，
+		// 替换后成一个真正的值
+		// 如果这段话不好理解，可以先稍微知道有这么个东西，它是一个变量，用来占着你的property的位置，等刷新的时候再进行填充。
+		// ComparisonPropertySource是存根的子类，仅仅用于集合的操作。注释中也是这么说，我们在propertySource的named方法上按f2
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable

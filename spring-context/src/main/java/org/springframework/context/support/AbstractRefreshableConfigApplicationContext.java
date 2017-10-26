@@ -22,6 +22,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+
 /**
  * {@link AbstractRefreshableApplicationContext} subclass that adds common handling
  * of specified config locations. Serves as base class for XML-based application
@@ -68,6 +70,16 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 		setConfigLocations(StringUtils.tokenizeToStringArray(location, CONFIG_LOCATION_DELIMITERS));
 	}
 
+	public static void main(String[] args) {
+		String location1="asbscsd";
+		String location2="a;b;c;d";
+		String location3="a	b	c	d";
+		String location4="a,;b,;c,;d";
+		System.out.println("location1="+ Arrays.deepToString(StringUtils.tokenizeToStringArray(location1, CONFIG_LOCATION_DELIMITERS)));
+		System.out.println("location2="+ Arrays.deepToString(StringUtils.tokenizeToStringArray(location2, CONFIG_LOCATION_DELIMITERS)));
+		System.out.println("location3="+ Arrays.deepToString(StringUtils.tokenizeToStringArray(location3, CONFIG_LOCATION_DELIMITERS)));
+		System.out.println("location4="+ Arrays.deepToString(StringUtils.tokenizeToStringArray(location4, CONFIG_LOCATION_DELIMITERS)));
+	}
 	/**
 	 * Set the config locations for this application context.
 	 * <p>If not set, the implementation may use a default as appropriate.
