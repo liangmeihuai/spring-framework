@@ -1,0 +1,13 @@
+@startuml
+AbstractApplicationContext -> AbstractApplicationContext: refresh()
+AbstractApplicationContext -> AbstractApplicationContext: obtainFreshBeanFactory()
+note left: obtainFreshBeanFactory()\n是在refresh()方法里面调用的
+AbstractApplicationContext -> AbstractApplicationContext: obtainFreshBeanFactory()
+AbstractApplicationContext -> AbstractApplicationContext: refreshBeanFactory()
+note left: refreshBeanFactory()\n是在obtainFreshBeanFactory()方法里面调用的\n同时是一个抽象方法，需要调用其子类
+AbstractApplicationContext -> AbstractRefreshableApplicationContext: refreshBeanFactory()
+Bob --> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml
