@@ -29,13 +29,15 @@ import org.springframework.core.io.Resource;
  * Convenient base class for {@link org.springframework.context.ApplicationContext}
  * implementations, drawing configuration from XML documents containing bean definitions
  * understood by an {@link org.springframework.beans.factory.xml.XmlBeanDefinitionReader}.
- *
+ *AbstractXmlApplicationContext是ApplicationContext的一个很方便的基础类
+ *从包含bean定义的XML文档中提取出能够被xmlbeanDefinitionReader认识的配置信息
  * <p>Subclasses just have to implement the {@link #getConfigResources} and/or
  * the {@link #getConfigLocations} method. Furthermore, they might override
  * the {@link #getResourceByPath} hook to interpret relative paths in an
  * environment-specific fashion, and/or {@link #getResourcePatternResolver}
  * for extended pattern resolution.
- *
+ *子类仅仅需要实现getConfigResources方法，并且/或者getConfigLocations方法。此外，他们可能覆盖getResourceByPath钩子方法
+ * 来解析在一有着个特定环境风格的相对路径；且/或 为了扩展的模式解决，实现getResourcePatternResolver方法
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see #getConfigResources

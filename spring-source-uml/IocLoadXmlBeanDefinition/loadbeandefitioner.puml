@@ -6,6 +6,9 @@ AbstractApplicationContext -> AbstractApplicationContext: obtainFreshBeanFactory
 AbstractApplicationContext -> AbstractApplicationContext: refreshBeanFactory()
 note left: refreshBeanFactory()\n是在obtainFreshBeanFactory()方法里面调用的\n同时是一个抽象方法，需要调用其子类
 AbstractApplicationContext -> AbstractRefreshableApplicationContext: refreshBeanFactory()
+AbstractRefreshableApplicationContext -> AbstractRefreshableApplicationContext: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)
+note left: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)\n是在refreshBeanFactory()方法里面调用的\n同时是一个抽象方法，需要调用其子类
+AbstractRefreshableApplicationContext -> AbstractXmlApplicationContext: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)
 Bob --> Alice: Authentication Response
 
 Alice -> Bob: Another authentication Request

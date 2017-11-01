@@ -226,7 +226,9 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	/**
 	 * Load bean definitions into the given bean factory, typically through
 	 * delegating to one or more bean definition readers.
-	 * @param beanFactory the bean factory to load bean definitions into
+	 * 加载bean definitions到给定的bean工程，最典型的就是通过代理给一个或者多个bean definition读取器
+	 * [通常通过委托一个或多个bean定义阅读器将bean定义加载到给定的bean工厂中。]
+	 * @param beanFactory the bean factory to load bean definitions into bean工厂加载bean定义
 	 * @throws BeansException if parsing of the bean definitions failed
 	 * @throws IOException if loading of bean definition files failed
 	 * @see org.springframework.beans.factory.support.PropertiesBeanDefinitionReader
