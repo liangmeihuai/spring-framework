@@ -1,16 +1,42 @@
 @startuml
+scale 1.2
 AbstractApplicationContext -> AbstractApplicationContext: refresh()
 AbstractApplicationContext -> AbstractApplicationContext: obtainFreshBeanFactory()
 note left: obtainFreshBeanFactory()\n是在refresh()方法里面调用的
-AbstractApplicationContext -> AbstractApplicationContext: obtainFreshBeanFactory()
-AbstractApplicationContext -> AbstractApplicationContext: refreshBeanFactory()
-note left: refreshBeanFactory()\n是在obtainFreshBeanFactory()方法里面调用的\n同时是一个抽象方法，需要调用其子类
+/'AbstractApplicationContext -> AbstractApplicationContext: refreshBeanFactory()'/
+/'note left: refreshBeanFactory()\n是在obtainFreshBeanFactory()方法里面调用的\n同时是一个抽象方法，需要调用其子类'/
 AbstractApplicationContext -> AbstractRefreshableApplicationContext: refreshBeanFactory()
-AbstractRefreshableApplicationContext -> AbstractRefreshableApplicationContext: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)
-note left: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)\n是在refreshBeanFactory()方法里面调用的\n同时是一个抽象方法，需要调用其子类
+/'AbstractRefreshableApplicationContext -> AbstractRefreshableApplicationContext: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)'/
+/'note left: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)\n是在refreshBeanFactory()方法里面调用的\n同时是一个抽象方法，需要调用其子类'/
 AbstractRefreshableApplicationContext -> AbstractXmlApplicationContext: loadBeanDefinitions(DefaultListableBeanFactory beanFactory)
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+AbstractXmlApplicationContext -> AbstractXmlApplicationContext: void loadBeanDefinitions(XmlBeanDefinitionReader reader)
+AbstractXmlApplicationContext -> AbstractBeanDefinitionReader: int loadBeanDefinitions(Resource... resources)
+AbstractBeanDefinitionReader -> XmlBeanDefinitionReader: int loadBeanDefinitions(Resource resource)
+note left: 把相应的资源转换inputStream为inputSource
+XmlBeanDefinitionReader -> XmlBeanDefinitionReader: public int loadBeanDefinitions(EncodedResource encodedResource)
+note left: 调用包含了字符编码信息的方法
+XmlBeanDefinitionReader -> XmlBeanDefinitionReader: doLoadBeanDefinitions(InputSource inputSource, Resource resource)
+note left: 进入方法解析和加载bean的核心实现逻辑所在
+XmlBeanDefinitionReader -> XmlBeanDefinitionReader: public int registerBeanDefinitions(Document doc, Resource resource)
+note left: 根据xml document文档注册beanDefinition
+XmlBeanDefinitionReader -> XmlBeanDefinitionReader: Document doLoadDocument(InputSource inputSource, Resource resource)
+note left: XmlBeanDefinitionReader依赖于DocumentLoader(这里实现的是new DefaultDocumentLoader())
+XmlBeanDefinitionReader -> XmlBeanDefinitionReader: getValidationModeForResource(resource)
+note left: 在doLoadDocument这个方法里面还调用了getValidationModeForResource决定xml的验证模式\n是DTD还是XSD
+XmlBeanDefinitionReader -> DefaultDocumentLoader: Document loadDocument(InputSource inputSource, EntityResolver entityResolver,ErrorHandler errorHandler, int validationMode, boolean namespaceAware) throws Exception;
+note left: 这个方法是在XmlBeanDefinitionReader的doLoadDocument(InputSource inputSource, Resource resource)里面调用的
+DefaultDocumentLoader --> XmlBeanDefinitionReader: return Document到XmlBeanDefinitionReader
+XmlBeanDefinitionReader -> XmlBeanDefinitionReader: int registerBeanDefinitions(Document doc, Resource resource)
+note left: 注册包含在给定的dom文档中的bean definitions返回的是\nthe number of bean definitions found
+XmlBeanDefinitionReader -> DefaultBeanDefinitionDocumentReader: documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
+note left: registerBeanDefinitions方法是在XmlBeanDefinitionReader的registerBeanDefinitions(Document doc, Resource resource)\n里面调用的
+/'DefaultBeanDefinitionDocumentReader --> XmlBeanDefinitionReader: return注册的bean definition数量'/
+DefaultBeanDefinitionDocumentReader -> DefaultBeanDefinitionDocumentReader: doRegisterBeanDefinitions(Element root)
+DefaultBeanDefinitionDocumentReader -> DefaultBeanDefinitionDocumentReader: this.delegate = createDelegate(getReaderContext(), root, parent);
+note left: 在这个方法里面有BeanDefinitionParserDelegate delegate = new BeanDefinitionParserDelegate(readerContext);依赖于BeanDefinitionParserDelegate
+DefaultBeanDefinitionDocumentReader -> DefaultBeanDefinitionDocumentReader: protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate)
+note left: 解析xml文档中的元素为beandefinition(里面有parseDefaultElement(ele, delegate);spring默认的标签\n和delegate.parseCustomElement(ele);自己自定义的xml标签，下面先将spring默认的标签)
+DefaultBeanDefinitionDocumentReader -> DefaultBeanDefinitionDocumentReader: private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate)
+note left: 这个方法里面有四个分支，解析'import','alias','bean'和‘beans’标签，下面我们这里进入解析</bean>标签的方法
+DefaultBeanDefinitionDocumentReader -> DefaultBeanDefinitionDocumentReader: protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate)
 @enduml

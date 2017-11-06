@@ -189,9 +189,39 @@ TIPS:
 使用 scale 命令来指定生成的图片的尺寸
 总结
 
-不需要去记这些标记，在需要的时候去使用它，通过不断地使用来熟悉不同的图的语法。可以下载 PlanUML 官方文档 作为参考，遇到问题的时候翻一翻，这样很快就可以学会使用 PlantUML 高效地画图。
+@startuml
 
-作者：kamidox
-链接：http://www.jianshu.com/p/e92a52770832
-來源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+title class-diagram.png
+scale 1.5
+/'组合关系(composition)'/
+class Human {
+    - Head mHead;
+    - Heart mHeart;
+    ..
+    - CreditCard mCard;
+    --
+    + void travel(Vehicle vehicle);
+}
+
+Human *-up- Head : contains >
+Human *-up- Heart : contains >
+
+/'聚合关系(aggregation)'/
+Human o-left- CreditCard : owns >
+
+/'依赖关系(dependency)'/
+Human .down.> Vehicle : dependent
+
+/'关联关系(association'/
+Human -down-> Company : associate
+
+/'继承关系(extention)'/
+interface IProgram {
+    + void program();
+}
+class Programmer {
+    + void program();
+}
+Programmer -left-|> Human : extend
+Programmer .up.|> IProgram : implement
+@enduml

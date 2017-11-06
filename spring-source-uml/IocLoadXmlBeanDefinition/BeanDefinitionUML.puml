@@ -1,0 +1,66 @@
+@startuml
+title BeanDefinition-extends-relation
+scale 1.2
+interface ResourceLoader
+interface BeanDefinitionReader
+interface EnviromentCapable
+abstract  AbstractBeanDefinitionReader
+AbstractBeanDefinitionReader .up.> ResourceLoader : Dependent
+AbstractBeanDefinitionReader .up.|>  EnviromentCapable : Realization
+AbstractBeanDefinitionReader .up.|> BeanDefinitionReader : Realization
+AbstractBeanDefinitionReader o-up- BeanDefinitionRegistry : 1-Aggregation-1
+interface DocumentLoader
+interface BeanDefinitionDocumentLoader
+class XmlBeanDefinitionReader
+XmlBeanDefinitionReader -up-|> AbstractBeanDefinitionReader : Extends
+XmlBeanDefinitionReader .up.> DocumentLoader : Dependent
+XmlBeanDefinitionReader .up.> BeanDefinitionDocumentReader : Dependent
+class BeanDefinitionParserDelegate
+class DefaultBeanDefinitionDocumentReader
+class XmlReaderContext
+DefaultBeanDefinitionDocumentReader .up.> BeanDefinitionParserDelegate : Dependent
+DefaultBeanDefinitionDocumentReader .up.|> BeanDefinitionDocumentReader : Realization
+DefaultBeanDefinitionDocumentReader -right-> XmlReaderContext : Association
+note left: DefaultBeanDefinitionDocumentReader关联于XmlReaderContext在\nvoid registerBeanDefinitions(Document doc, XmlReaderContext readerContext)方法中传入
+
+
+
+@enduml
+
+
+@startuml
+
+title class-diagram.png
+scale 1.2
+/'组合关系(composition)'/
+class Human {
+    - Head mHead;
+    - Heart mHeart;
+    ..
+    - CreditCard mCard;
+    --
+    + void travel(Vehicle vehicle);
+}
+
+Human *-up- Head : contains >
+Human *-up- Heart : contains >
+
+/'聚合关系(aggregation)'/
+Human o-left- CreditCard : owns >
+
+/'依赖关系(dependency)'/
+Human .down.> Vehicle : dependent
+
+/'关联关系(association'/
+Human -down-> Company : associate
+
+/'继承关系(extention)'/
+interface IProgram {
+    + void program();
+}
+class Programmer {
+    + void program();
+}
+Programmer -left-|> Human : extend
+Programmer .up.|> IProgram : implement
+@enduml

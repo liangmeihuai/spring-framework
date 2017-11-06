@@ -22,11 +22,12 @@ import java.util.Stack;
  * Simple {@link Stack}-based structure for tracking the logical position during
  * a parsing process. {@link Entry entries} are added to the stack at
  * each point during the parse phase in a reader-specific manner.
- *
+ *在解析过程中的一种简单的结构来追踪逻辑上的位置信息。
  * <p>Calling {@link #toString()} will render a tree-style view of the current logical
  * position in the parse phase. This representation is intended for use in
  * error messages.
- *
+ *调用toString()方法能够表现在解析阶段中当前逻辑位置信息的树形结构。
+ * 这种展现是为了用于错误的信息中。
  * @author Rob Harrop
  * @since 2.0
  */

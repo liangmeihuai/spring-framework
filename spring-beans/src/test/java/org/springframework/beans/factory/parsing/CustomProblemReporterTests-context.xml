@@ -9,7 +9,7 @@
 	<bean id="invalidMapDefinition" class="org.springframework.tests.sample.beans.TestBean">
 		<property name="someMap">
 			<map>
-				<entry/>
+				<entry key="i2" value="23"/>
 			</map>
 		</property>
 	</bean>
@@ -19,7 +19,7 @@
 			<bean class="org.springframework.tests.sample.beans.TestBean">
 				<property name="someMap">
 				    <map>
-				        <entry/>
+				        <entry key="2"/>
 				    </map>
 				</property>
 			</bean>

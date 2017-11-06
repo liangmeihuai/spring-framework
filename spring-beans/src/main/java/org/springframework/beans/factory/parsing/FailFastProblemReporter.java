@@ -22,13 +22,13 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Simple {@link ProblemReporter} implementation that exhibits fail-fast
  * behavior when errors are encountered.
- *
+ *遇到错误时，表现出快速行为的简单实现
  * <p>The first error encountered results in a {@link BeanDefinitionParsingException}
  * being thrown.
- *
+ *第一个遇到的错误导致一个BeanDefinitionParsingException被抛出
  * <p>Warnings are written to
  * {@link #setLogger(org.apache.commons.logging.Log) the log} for this class.
- *
+ *对于这个class的警告信息会被写到{@link #setLogger(org.apache.commons.logging.Log) the log}里面
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Rick Evans

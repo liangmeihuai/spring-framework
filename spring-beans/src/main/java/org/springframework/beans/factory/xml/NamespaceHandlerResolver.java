@@ -19,7 +19,7 @@ package org.springframework.beans.factory.xml;
 /**
  * Used by the {@link org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader} to
  * locate a {@link NamespaceHandler} implementation for a particular namespace URI.
- *
+ *由DefaultBeanDefinitionDocumentReader使用NamespaceHandlerResolver来定位对于特定的namespace URI的一个实现
  * @author Rob Harrop
  * @since 2.0
  * @see NamespaceHandler
@@ -30,8 +30,10 @@ public interface NamespaceHandlerResolver {
 	/**
 	 * Resolve the namespace URI and return the located {@link NamespaceHandler}
 	 * implementation.
-	 * @param namespaceUri the relevant namespace URI
+	 * 解析namespace URI，并且返回实现的位置信息。
+	 * @param namespaceUri the relevant namespace URI 相关的namespace URI
 	 * @return the located {@link NamespaceHandler} (may be {@code null})
+	 * 精确定位的NamespaceHandler(可能为null)
 	 */
 	NamespaceHandler resolve(String namespaceUri);
 

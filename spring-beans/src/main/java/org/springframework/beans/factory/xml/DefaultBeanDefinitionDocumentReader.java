@@ -125,6 +125,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 	/**
 	 * Register each bean definition within the given root {@code <beans/>} element.
+	 * 注册每个带有root</beans>对象元素的definition
 	 */
 	protected void doRegisterBeanDefinitions(Element root) {
 		String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
@@ -142,6 +143,14 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// the new (child) delegate with a reference to the parent for fallback purposes,
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
+		/**
+		 * 任何嵌套的<beans></beans>elements都会在这个方法中导致递归。
+		 * 是为了能够正确地传播和保存</beans>地默认属性。
+		 * 记录当前的(或者父的)委派(delegate)，当然这个委派有可能是null。
+		 * 为了能够回退创建一个带有父类指针的新的(child)委派,
+		 * 然后能够完全重设这个委派(this.delegate)到它最初的(parent)指针。、
+		 * 这种行为模拟了一堆委托，而实际上并不需要一个委托。
+		 */
 		BeanDefinitionParserDelegate parent = this.delegate;
 		this.delegate = createDelegate(this.readerContext, root, parent);
 
