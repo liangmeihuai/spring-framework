@@ -44,7 +44,9 @@ import org.springframework.util.StringUtils;
  * <p>The autowire constants match the ones defined in the
  * {@link org.springframework.beans.factory.config.AutowireCapableBeanFactory}
  * interface.
- *
+ *具体而全面的{@ linkorg.springframework.beans.factory.config.BeanDefinition}类的基类，
+ * 分解了GenericBeanDefinition，RootBeanDefinition和ChildBeanDefinition的共同属性。
+ *自动装配常量与在{@link org.springframework.beans.factory.config.AutowireCapableBeanFactory}接口中定义的常量相匹配。
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop
