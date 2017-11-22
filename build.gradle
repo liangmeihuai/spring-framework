@@ -299,14 +299,14 @@ project("spring-beans") {
 	}
 }
 
-/*
 project("spring-beans-groovy") {
 	description "Groovy Bean Definitions"
-	merge.into = project(":spring-beans")
-	apply plugin: "groovy"
+//	merge.into = project(":spring-beans")
+//	apply plugin: "groovy"
 
 	dependencies {
 		compile(project(":spring-core"))
+		compile(project(":spring-beans"))
 		optional("org.codehaus.groovy:groovy-all:${groovyVersion}")
 	}
 
@@ -324,7 +324,7 @@ project("spring-beans-groovy") {
 		sourceCompatibility=1.6
 		targetCompatibility=1.6
 	}
-}*/
+}
 
 project("spring-aop") {
 	description = "Spring AOP"

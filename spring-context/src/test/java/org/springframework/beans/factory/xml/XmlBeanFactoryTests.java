@@ -1187,6 +1187,17 @@ public final class XmlBeanFactoryTests {
 		reader.setBeanClassLoader(null);
 		reader.loadBeanDefinitions(CLASS_NOT_FOUND_CONTEXT);
 		assertEquals("WhatALotOfRubbish", bf.getBeanDefinition("classNotFound").getBeanClassName());
+		System.out.println(bf.getBean("classNotFound"));
+	}
+
+	@Test
+	public void testClassNotFoundWithNoBeanClassLoader2() {
+		DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(bf);
+		reader.setBeanClassLoader(null);
+		reader.loadBeanDefinitions(CLASS_NOT_FOUND_CONTEXT);
+//		assertEquals("WhatALotOfRubbish", bf.getBeanDefinition("classNotFound").getBeanClassName());
+		System.out.println(bf.getBean("classNotFound"));
 	}
 
 	@Test

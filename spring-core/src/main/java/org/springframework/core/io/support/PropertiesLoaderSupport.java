@@ -31,7 +31,7 @@ import org.springframework.util.PropertiesPersister;
  * Base class for JavaBean-style components that need to load properties
  * from one or more resources. Supports local properties as well, with
  * configurable overriding.
- *
+ * JavaBean样式组件的基类，需要从一个或多个资源加载属性。 支持本地属性，可配置覆盖。
  * @author Juergen Hoeller
  * @since 1.2.2
  */

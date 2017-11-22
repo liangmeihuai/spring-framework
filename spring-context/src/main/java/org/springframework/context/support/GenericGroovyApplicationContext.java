@@ -24,7 +24,8 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.groovy.GroovyBeanDefinitionReader;
+//import org.springframework.beans.factory.groovy.GroovyBeanDefinitionReader;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -111,7 +112,8 @@ import org.springframework.core.io.Resource;
  */
 public class GenericGroovyApplicationContext extends GenericApplicationContext implements GroovyObject {
 
-	private final GroovyBeanDefinitionReader reader = new GroovyBeanDefinitionReader(this);
+//	private final GroovyBeanDefinitionReader reader = new GroovyBeanDefinitionReader(this);
+	private final XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(this);
 
 	private final BeanWrapper contextWrapper = new BeanWrapperImpl(this);
 
@@ -157,17 +159,17 @@ public class GenericGroovyApplicationContext extends GenericApplicationContext i
 		refresh();
 	}
 
-
-	/**
-	 * Exposes the underlying {@link GroovyBeanDefinitionReader} for convenient access
-	 * to the {@code loadBeanDefinition} methods on it as well as the ability
-	 * to specify an inline Groovy bean definition closure.
-	 * @see GroovyBeanDefinitionReader#loadBeanDefinitions(org.springframework.core.io.Resource...)
-	 * @see GroovyBeanDefinitionReader#loadBeanDefinitions(String...)
-	 */
-	public final GroovyBeanDefinitionReader getReader() {
-		return this.reader;
-	}
+//
+//	/**
+//	 * Exposes the underlying {@link GroovyBeanDefinitionReader} for convenient access
+//	 * to the {@code loadBeanDefinition} methods on it as well as the ability
+//	 * to specify an inline Groovy bean definition closure.
+//	 * @see GroovyBeanDefinitionReader#loadBeanDefinitions(org.springframework.core.io.Resource...)
+//	 * @see GroovyBeanDefinitionReader#loadBeanDefinitions(String...)
+//	 */
+//	public final GroovyBeanDefinitionReader getReader() {
+//		return this.reader;
+//	}
 
 	/**
 	 * Delegates the given environment to underlying {@link GroovyBeanDefinitionReader}.

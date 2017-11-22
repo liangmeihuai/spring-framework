@@ -114,6 +114,7 @@ public final class ParseState {
 
 	/**
 	 * Marker interface for entries into the {@link ParseState}.
+	 * 进入{@链接Parse State}的条目的标记接口
 	 */
 	public interface Entry {
 

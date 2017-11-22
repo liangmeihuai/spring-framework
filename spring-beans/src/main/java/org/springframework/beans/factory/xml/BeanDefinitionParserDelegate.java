@@ -70,6 +70,7 @@ import org.springframework.util.xml.DomUtils;
 /**
  * Stateful delegate class used to parse XML bean definitions.
  * Intended for use by both the main parser and any extension
+ * 用于解析XML bean定义的有状态委托类。用于主要解析器和任何扩展
  * {@link BeanDefinitionParser BeanDefinitionParsers} or
  * {@link BeanDefinitionDecorator BeanDefinitionDecorators}.
  *
@@ -248,7 +249,7 @@ public class BeanDefinitionParserDelegate {
 	private final Environment environment;
 
 	private final DocumentDefaultsDefinition defaults = new DocumentDefaultsDefinition();
-
+	// 在解析过程中的一种简单的结构来追踪逻辑上的位置信息。
 	private final ParseState parseState = new ParseState();
 
 	/**
@@ -447,6 +448,8 @@ public class BeanDefinitionParserDelegate {
 	 * if there were errors during parse. Errors are reported to the
 	 * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
 	 * 解析给定的</bean>标签.如果在解析过程有错误，将会返回null.错误将会上报为ProblemReporter类
+	 * question : containingBean是什么???
+	 * containingBean？
 	 */
 	public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, BeanDefinition containingBean) {
 		String id = ele.getAttribute(ID_ATTRIBUTE);
@@ -511,6 +514,7 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Validate that the specified bean name and aliases have not been used already
 	 * within the current level of beans element nesting.
+	 * 验证指定的bean名称和别名在beans元素嵌套的当前级别中是否已被使用
 	 */
 	protected void checkNameUniqueness(String beanName, List<String> aliases, Element beanElement) {
 		String foundName = null;
@@ -532,27 +536,31 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Parse the bean definition itself, without regard to name or aliases. May return
 	 * {@code null} if problems occurred during the parsing of the bean definition.
+	 * 解析bean定义本身，而不考虑名称或别名
 	 */
 	public AbstractBeanDefinition parseBeanDefinitionElement(
 			Element ele, String beanName, BeanDefinition containingBean) {
-
+		// 在解析过程中的一种简单的结构来追踪逻辑上的位置信息。
+		// 设置此状态为解析BeanEntry阶段
 		this.parseState.push(new BeanEntry(beanName));
 
 		String className = null;
-		if (ele.hasAttribute(CLASS_ATTRIBUTE)) {
+		if (ele.hasAttribute(CLASS_ATTRIBUTE)) {// 如果element标签上有class属性，则把className的信息取出来
 			className = ele.getAttribute(CLASS_ATTRIBUTE).trim();
 		}
 
 		try {
 			String parent = null;
-			if (ele.hasAttribute(PARENT_ATTRIBUTE)) {
+			if (ele.hasAttribute(PARENT_ATTRIBUTE)) {// 有parent属性，取parent上的信息
 				parent = ele.getAttribute(PARENT_ATTRIBUTE);
 			}
+			// 创建用于承载属性的AbstractBeanDefinition类型的GenericBeanDefinition
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
-
+			// 硬编码解析默认bean的各种属性
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
+			// bedefinition设置description
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
-
+			// 解析元数据
 			parseMetaElements(ele, bd);
 			parseLookupOverrideSubElements(ele, bd.getMethodOverrides());
 			parseReplacedMethodSubElements(ele, bd.getMethodOverrides());
@@ -560,7 +568,6 @@ public class BeanDefinitionParserDelegate {
 			parseConstructorArgElements(ele, bd);
 			parsePropertyElements(ele, bd);
 			parseQualifierElements(ele, bd);
-
 			bd.setResource(this.readerContext.getResource());
 			bd.setSource(extractSource(ele));
 
@@ -584,10 +591,11 @@ public class BeanDefinitionParserDelegate {
 
 	/**
 	 * Apply the attributes of the given bean element to the given bean * definition.
+	 * 将给定bean元素的属性应用于给定的bean定义
 	 * @param ele bean declaration element
 	 * @param beanName bean name
 	 * @param containingBean containing bean definition
-	 * @return a bean definition initialized according to the bean element attributes
+	 * @return a bean definition initialized according to the bean element attributes 根据bean元素属性初始化的bean定义
 	 */
 	public AbstractBeanDefinition parseBeanDefinitionAttributes(Element ele, String beanName,
 			BeanDefinition containingBean, AbstractBeanDefinition bd) {
@@ -600,6 +608,7 @@ public class BeanDefinitionParserDelegate {
 		}
 		else if (containingBean != null) {
 			// Take default from containing bean in case of an inner bean definition.
+			// 在内部bean定义的情况下，从包含bean中获取默认值。
 			bd.setScope(containingBean.getScope());
 		}
 
@@ -623,10 +632,10 @@ public class BeanDefinitionParserDelegate {
 			String dependsOn = ele.getAttribute(DEPENDS_ON_ATTRIBUTE);
 			bd.setDependsOn(StringUtils.tokenizeToStringArray(dependsOn, MULTI_VALUE_ATTRIBUTE_DELIMITERS));
 		}
-
+		// TODO important pattern XXX*YYY
 		String autowireCandidate = ele.getAttribute(AUTOWIRE_CANDIDATE_ATTRIBUTE);
 		if ("".equals(autowireCandidate) || DEFAULT_VALUE.equals(autowireCandidate)) {
-			String candidatePattern = this.defaults.getAutowireCandidates();
+			String candidatePattern = this.defaults.getAutowireCandidates(); //逗号分隔pattern
 			if (candidatePattern != null) {
 				String[] patterns = StringUtils.commaDelimitedListToStringArray(candidatePattern);
 				bd.setAutowireCandidate(PatternMatchUtils.simpleMatch(patterns, beanName));
@@ -678,10 +687,11 @@ public class BeanDefinitionParserDelegate {
 
 	/**
 	 * Create a bean definition for the given class name and parent name.
+	 * 为给定的类名和父名称创建一个bean定义
 	 * @param className the name of the bean class
 	 * @param parentName the name of the bean's parent bean
-	 * @return the newly created bean definition
-	 * @throws ClassNotFoundException if bean class resolution was attempted but failed
+	 * @return the newly created bean definition 新创建的bean定义
+	 * @throws ClassNotFoundException if bean class resolution was attempted but failed 如果尝试了bean类解析，但失败了
 	 */
 	protected AbstractBeanDefinition createBeanDefinition(String className, String parentName)
 			throws ClassNotFoundException {
@@ -762,6 +772,7 @@ public class BeanDefinitionParserDelegate {
 
 	/**
 	 * Parse property sub-elements of the given bean element.
+	 * 解析给定bean元素的属性子元素
 	 */
 	public void parsePropertyElements(Element beanEle, BeanDefinition bd) {
 		NodeList nl = beanEle.getChildNodes();
@@ -963,6 +974,7 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Get the value of a property element. May be a list etc.
 	 * Also used for constructor arguments, "propertyName" being null in this case.
+	 * 获取属性元素的值。可能是一个列表等等。也用于构造函数参数，在本例中“属性名”为空。
 	 */
 	public Object parsePropertyValue(Element ele, BeanDefinition bd, String propertyName) {
 		String elementName = (propertyName != null) ?
@@ -988,6 +1000,8 @@ public class BeanDefinitionParserDelegate {
 
 		boolean hasRefAttribute = ele.hasAttribute(REF_ATTRIBUTE);
 		boolean hasValueAttribute = ele.hasAttribute(VALUE_ATTRIBUTE);
+		// 1.不存在同时既有ref属性还有value属性
+		// 2.不存在同时有ref属性(或者value属性)，但是还有子元素subElement.
 		if ((hasRefAttribute && hasValueAttribute) ||
 				((hasRefAttribute || hasValueAttribute) && subElement != null)) {
 			error(elementName +
@@ -995,6 +1009,7 @@ public class BeanDefinitionParserDelegate {
 		}
 
 		if (hasRefAttribute) {
+			// ref属性的处理，使用RuntimeBeanReference封装对应的ref名称
 			String refName = ele.getAttribute(REF_ATTRIBUTE);
 			if (!StringUtils.hasText(refName)) {
 				error(elementName + " contains empty 'ref' attribute", ele);
@@ -1004,6 +1019,7 @@ public class BeanDefinitionParserDelegate {
 			return ref;
 		}
 		else if (hasValueAttribute) {
+			// value属性的处理，使用TypedStringValue封装
 			TypedStringValue valueHolder = new TypedStringValue(ele.getAttribute(VALUE_ATTRIBUTE));
 			valueHolder.setSource(extractSource(ele));
 			return valueHolder;
@@ -1012,6 +1028,7 @@ public class BeanDefinitionParserDelegate {
 			return parsePropertySubElement(subElement, bd);
 		}
 		else {
+			// 既没有子元素也没有ref（或者value）属性，报错
 			// Neither child element nor "ref" or "value" attribute found.
 			error(elementName + " must specify a ref or value", ele);
 			return null;
@@ -1025,7 +1042,8 @@ public class BeanDefinitionParserDelegate {
 	/**
 	 * Parse a value, ref or collection sub-element of a property or
 	 * constructor-arg element.
-	 * @param ele subelement of property element; we don't know which yet
+	 * 解析一个属性或构造器- arg元素的值、ref或集合子元素
+	 * @param ele subelement of property element; we don't know which yet 属性元素的子元素;我们还不知道
 	 * @param defaultValueType the default type (class name) for any
 	 * {@code &lt;value&gt;} tag that might be created
 	 */

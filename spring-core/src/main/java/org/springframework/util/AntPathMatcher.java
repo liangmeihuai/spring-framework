@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  * - matches all {@code .jsp} files underneath the {@code org/springframework} path</li>
  * <li>{@code org/&#42;&#42;/servlet/bla.jsp} - matches {@code org/springframework/servlet/bla.jsp} but also
  * {@code org/springframework/testing/servlet/bla.jsp} and {@code org/servlet/bla.jsp}</li> </ul>
- *
+ * &#42;&#42;代表两个**的转义
  * @author Alef Arendsen
  * @author Juergen Hoeller
  * @author Rob Harrop

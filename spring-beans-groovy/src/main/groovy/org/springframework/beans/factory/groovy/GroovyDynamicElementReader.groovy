@@ -44,7 +44,6 @@ class GroovyDynamicElementReader extends GroovyObjectSupport {
 
 	private boolean callAfterInvocation = true
 
-
 	public GroovyDynamicElementReader(String namespace, Map<String, String> namespaceMap,
 			BeanDefinitionParserDelegate delegate, GroovyBeanDefinitionWrapper beanDefinition, boolean decorating) {
 		super();

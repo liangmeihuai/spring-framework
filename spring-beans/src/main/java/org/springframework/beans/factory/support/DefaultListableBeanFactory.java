@@ -639,6 +639,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace("No bean named '" + beanName + "' found in " + this);
 			}
+			System.out.println("No bean named '" + beanName + "' found in " + this);
 			throw new NoSuchBeanDefinitionException(beanName);
 		}
 		return bd;

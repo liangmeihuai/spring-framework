@@ -30,6 +30,12 @@ import org.springframework.beans.BeansException;
  * <p>For a list of all bean lifecycle methods, see the
  * {@link BeanFactory BeanFactory javadocs}.
  *
+ * 接口由想要知道他们拥有的BeanFactory的bean实现。
+ * 例如，bean可以通过工厂查找协作bean（依赖查找）。
+ * 请注意，大多数bean将选择通过相应的bean属性或构造函数参数（依赖注入）
+ * 来接受对协作bean的引用。
+ * 有关所有bean生命周期方法的列表，请参阅BeanFactory BeanFactory javadocs。
+ *
  * @author Rod Johnson
  * @author Chris Beams
  * @since 11.03.2003
@@ -47,6 +53,10 @@ public interface BeanFactoryAware extends Aware {
 	 * {@link InitializingBean#afterPropertiesSet()} or a custom init-method.
 	 * @param beanFactory owning BeanFactory (never {@code null}).
 	 * The bean can immediately call methods on the factory.
+	 * 回调，提供自己的工厂到一个bean实例。调用正常的bean属性之后，但在一个初始化回调，
+	 * 如{@link InitializingBean＃afterPropertiesSet（）}
+	 * 或一个自定义的init-method。@param beanFactory拥有BeanFactory（从不{ 代码null}）。
+	 *                       bean可以立即调用工厂的方法。
 	 * @throws BeansException in case of initialization errors
 	 * @see BeanInitializationException
 	 */

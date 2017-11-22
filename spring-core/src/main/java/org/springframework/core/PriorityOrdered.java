@@ -31,6 +31,13 @@ package org.springframework.core;
  * a special phase, ahead of other post-processor beans. This subtly
  * affects their autowiring behavior: They will only be autowired against
  * beans which do not require eager initialization for type matching.
+ * 表示“优先顺序”的接口的扩展：PriorityOrdered对象表示的顺序值始终应用于“普通”顺序值的顺序值之前。
+ * 这主要是一个专用接口，用于对象
+ *首先确定“优先”对象尤为重要，甚至没有获得剩余的对象。 一
+ * 个典型的例子：Spring中的优先级后处理器。
+ * 注意：PriorityOrdered后处理器bean是在一个特殊的阶段初始化的，
+ * 在其他后处理器bean之前。 这会巧妙地(精细地)影响它们的自动装配行为：
+ * 它们只会被自动装配，不需要对类型匹配进行预先初始化的bean。
  *
  * @author Juergen Hoeller
  * @since 2.5

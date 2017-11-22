@@ -25,10 +25,10 @@ import org.springframework.util.ObjectUtils;
  * Holder for a typed String value. Can be added to bean definitions
  * in order to explicitly specify a target type for a String value,
  * for example for collection elements.
- *
+ *具有类型字符串值的Holder。可以添加到bean定义，以便显式地为字符串值指定目标类型，例如收集元素。
  * <p>This holder will just store the String value and the target type.
  * The actual conversion will be performed by the bean factory.
- *
+ *这个holder只存储字符串值和目标类型。实际的转换将由bean工厂执行
  * @author Juergen Hoeller
  * @since 1.2
  * @see BeanDefinition#getPropertyValues
@@ -37,7 +37,7 @@ import org.springframework.util.ObjectUtils;
 public class TypedStringValue implements BeanMetadataElement {
 
 	private String value;
-
+	// name or class
 	private volatile Object targetType;
 
 	private Object source;
@@ -49,6 +49,7 @@ public class TypedStringValue implements BeanMetadataElement {
 
 	/**
 	 * Create a new {@link TypedStringValue} for the given String value.
+	 * 为给定的字符串值创建一个新的{@ link类型字符串值}.
 	 * @param value the String value
 	 */
 	public TypedStringValue(String value) {
@@ -58,6 +59,7 @@ public class TypedStringValue implements BeanMetadataElement {
 	/**
 	 * Create a new {@link TypedStringValue} for the given String value
 	 * and target type.
+	 * 为给定的字符串值和目标类型创建一个新的{@ link类型字符串值}
 	 * @param value the String value
 	 * @param targetType the type to convert to
 	 */
@@ -69,6 +71,7 @@ public class TypedStringValue implements BeanMetadataElement {
 	/**
 	 * Create a new {@link TypedStringValue} for the given String value
 	 * and target type.
+	 * 为给定的字符串值和目标类型创建一个新的{@ link类型字符串值}。
 	 * @param value the String value
 	 * @param targetTypeName the type to convert to
 	 */
@@ -82,6 +85,7 @@ public class TypedStringValue implements BeanMetadataElement {
 	 * Set the String value.
 	 * <p>Only necessary for manipulating a registered value,
 	 * for example in BeanFactoryPostProcessors.
+	 * 只需要操作注册值，例如在Bean工厂的后处理器
 	 * @see PropertyPlaceholderConfigurer
 	 */
 	public void setValue(String value) {
@@ -185,6 +189,8 @@ public class TypedStringValue implements BeanMetadataElement {
 
 	/**
 	 * Return the type name as actually specified for this particular value, if any.
+	 *
+	 如果有的话，返回指定为这个特定值的类型名称
 	 */
 	public String getSpecifiedTypeName() {
 		return this.specifiedTypeName;

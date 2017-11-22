@@ -19,6 +19,8 @@ package org.springframework.beans;
 /**
  * Holder containing one or more {@link PropertyValue} objects,
  * typically comprising one update for a specific target bean.
+ * 持有一个或多个{@链接属性值}对象的Holder,
+ * 通常包含针对特定目标bean的一个更新
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -29,6 +31,7 @@ public interface PropertyValues {
 
 	/**
 	 * Return an array of the PropertyValue objects held in this object.
+	 * 返回该对象中保存的属性值对象数组
 	 */
 	PropertyValue[] getPropertyValues();
 

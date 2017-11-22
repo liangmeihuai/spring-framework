@@ -511,8 +511,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	@SuppressWarnings("deprecation")
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
-		documentReader.setEnvironment(getEnvironment());
+		documentReader.setEnvironment(getEnvironment());// set enviroment
 		int countBefore = getRegistry().getBeanDefinitionCount();
+		// create a XmlReaderContext // TODO: 2017/11/15  to BeanDefinitionDocumentReader
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
 		return getRegistry().getBeanDefinitionCount() - countBefore;
 	}

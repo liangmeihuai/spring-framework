@@ -112,6 +112,7 @@ public class MutablePropertyValues implements PropertyValues, Serializable {
 	 * Return the underlying List of PropertyValue objects in its raw form.
 	 * The returned List can be modified directly, although this is not recommended.
 	 * <p>This is an accessor for optimized access to all PropertyValue objects.
+	 *这是对所有属性值对象进行优化访问的访问器
 	 * It is not intended for typical programmatic use.
 	 */
 	public List<PropertyValue> getPropertyValueList() {
@@ -313,6 +314,10 @@ public class MutablePropertyValues implements PropertyValues, Serializable {
 	 * <p>This will lead to {@code true} being returned from
 	 * a {@link #contains} call for the specified property.
 	 * @param propertyName the name of the property.
+	 *                     在某些处理器的意义上，将指定的属性注册为“处理”，
+	 *                     在属性值(s)机制之外调用相应的setter方法。
+	 *                     < p >这将导致{@ code true}从{@ link #contains}中返回指定属性的调用。
+	 *                     @ param属性名属性名。
 	 */
 	public void registerProcessedProperty(String propertyName) {
 		if (this.processedProperties == null) {

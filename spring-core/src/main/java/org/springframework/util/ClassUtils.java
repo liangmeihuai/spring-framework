@@ -89,6 +89,7 @@ public abstract class ClassUtils {
 	/**
 	 * Map with common "java.lang" class name as key and corresponding Class as value.
 	 * Primarily for efficient deserialization of remote invocations.
+	 * 与普通的“java”映射。lang“类名作为键，对应类为值。主要是对远程调用的有效反序列化
 	 */
 	private static final Map<String, Class<?>> commonClassCache = new HashMap<String, Class<?>>(32);
 
@@ -211,6 +212,10 @@ public abstract class ClassUtils {
 
 		Class<?> clazz = resolvePrimitiveClassName(name);
 		if (clazz == null) {
+			if (name.toLowerCase().contains("ah")){
+				// meihuaitest
+				System.out.println("clazz=+..."+clazz);
+			}
 			clazz = commonClassCache.get(name);
 		}
 		if (clazz != null) {
@@ -303,6 +308,8 @@ public abstract class ClassUtils {
 		// SHOULD sit in a package, so a length check is worthwhile.
 		if (name != null && name.length() <= 8) {
 			// Could be a primitive - likely.
+			// meihuai test
+			System.out.println("resolvePrimitiveClassName legnth <8 ...name="+name);
 			result = primitiveTypeNameMap.get(name);
 		}
 		return result;

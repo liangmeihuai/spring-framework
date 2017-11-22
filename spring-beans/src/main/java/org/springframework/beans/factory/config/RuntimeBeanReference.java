@@ -21,7 +21,7 @@ import org.springframework.util.Assert;
 /**
  * Immutable placeholder class used for a property value object when it's
  * a reference to another bean in the factory, to be resolved at runtime.
- *
+ *不变的占位符类用于属性值对象，当它引用工厂中的另一个bean时，在运行时解析。
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see BeanDefinition#getPropertyValues()
@@ -40,6 +40,7 @@ public class RuntimeBeanReference implements BeanReference {
 	 * Create a new RuntimeBeanReference to the given bean name,
 	 * without explicitly marking it as reference to a bean in
 	 * the parent factory.
+	 * 为给定的Bean名称创建一个新的运行时Bean引用，而不显式地将其标记为父工厂中的Bean的引用。
 	 * @param beanName name of the target bean
 	 */
 	public RuntimeBeanReference(String beanName) {
@@ -50,9 +51,10 @@ public class RuntimeBeanReference implements BeanReference {
 	 * Create a new RuntimeBeanReference to the given bean name,
 	 * with the option to mark it as reference to a bean in
 	 * the parent factory.
+	 * 为给定的Bean名称创建一个新的运行时Bean引用，并将其标记为父工厂中的Bean的引用。
 	 * @param beanName name of the target bean
 	 * @param toParent whether this is an explicit reference to
-	 * a bean in the parent factory
+	 * a bean in the parent factory 是否这是对父工厂中的bean的显式引用
 	 */
 	public RuntimeBeanReference(String beanName, boolean toParent) {
 		Assert.hasText(beanName, "'beanName' must not be empty");
@@ -69,6 +71,7 @@ public class RuntimeBeanReference implements BeanReference {
 	/**
 	 * Return whether this is an explicit reference to a bean
 	 * in the parent factory.
+	 * 返回是否这是对父工厂中的bean的显式引用
 	 */
 	public boolean isToParent() {
 		return this.toParent;

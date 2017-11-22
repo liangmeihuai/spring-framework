@@ -444,6 +444,28 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		return new StandardEnvironment();
 	}
 
+	/**
+	 * Spring解析配置文件中用到的一些关键类的介绍：
+	 Resource：各种资源的抽象接口，包括xml文件，网络上的资源等。
+	 BeanDefinitionRegistry：用于注册BeanDefinitionRegistry。
+	 BeanDefinitionReader：用于读取解析Resource的抽象接口。
+	 DefaultBeanDefinitionDocumentReader：实现了BeanDefinitionDocumentReader接口，
+	 DefaultBeanDefinitionDocumentReader并不负责任何具体的bean解析，它面向的是xml Document对象，
+	 根据其元素的命名空间和名称，起一个类似路由的作用（（不过，命名空间的判断，也是委托给delegate来做的），
+	 它跟BeanDefinitionParserDelegate协同合作，把解析任务交接BeanDefinitionParserDelegate来做。
+	 BeanDefinitionParserDelegate：完成具体Bean的解析(比如<bean>、<import>、<alias>标签)，
+	 对于扩展的标签会交给不同的NamespaceHandler跟BeanDefinitionParser来解析。
+	 BeanDefinitionParser：解析配置文件成相应的BeanDefinition(<context:component-scan>,<aop:config>等标签
+	 都是又不同的BeanDefinitionParser来解析)，一般在NamespaceHandler中使用。Spring也为自定义BeanDefinitionParser
+	 提供了很多支持，在一些抽象类的基础上添加少量功能即可满足大部分需求。
+	 NamespaceHandler：要解析自定义的bean就要通过自己所实现的NamespaceHandler来进行解析。
+	 比如定义了http\://www.springframework.org/schema/osgi=org.springframework.osgi.config.OsgiNamespaceHandler,
+	 那么在碰到osgi的scheme的时候就会去调用OsgiNamespaceHandler来进行解析； 在对于普通的扩展需求来说，
+	 只要让自己的Handler继承NamespaceHandlerSupport并实现
+	 init()方法 就好了，对于特殊的扩展需求 则可以自己 来实现NamespaceHandler。
+	 * @throws BeansException
+	 * @throws IllegalStateException
+     */
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {

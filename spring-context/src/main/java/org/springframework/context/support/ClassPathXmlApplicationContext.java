@@ -127,6 +127,7 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 	 * @param refresh whether to automatically refresh the context,
 	 * loading all bean definitions and creating all singletons.
 	 * Alternatively, call refresh manually after further configuring the context.
+	 *                或者，在进一步配置上下文之后手动调用refresh。
 	 * @param parent the parent context
 	 * @throws BeansException if context creation failed
 	 * @see #refresh()

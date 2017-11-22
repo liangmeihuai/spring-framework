@@ -1,5 +1,6 @@
 package meihuai_context;
 
+import ac.Ah;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,7 +27,8 @@ public class AnnotationTest {
 //        thread.start();
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         Person person=context.getBean("person", Person.class);
-        System.out.println(person);
+        Ah a=context.getBean("ah", Ah.class);
+        System.out.println(a);
     }
     @Test
     public void testResource() throws InterruptedException {

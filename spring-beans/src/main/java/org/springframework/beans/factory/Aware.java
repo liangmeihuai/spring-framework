@@ -32,7 +32,7 @@ package org.springframework.beans.factory;
  * Refer to {@link org.springframework.context.support.ApplicationContextAwareProcessor}
  * and {@link org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory}
  * for examples of processing {@code *Aware} interface callbacks.
- *注意到仅仅实现Aware接口并没有提供默认功能。再进一步，就是必须能够显示的处理，比如在一个eanPostProcessor BeanPostProcessor
+ *注意到仅仅实现Aware接口并没有提供默认功能。再进一步，就是必须能够显示的处理，比如在一个beanPostProcessor BeanPostProcessor
  * 指向了一个AbstractAutowireCapableBeanFactory。在比如处理Aware接口的回调方法
  * @author Chris Beams
  * @since 3.1

@@ -35,7 +35,9 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>Supports values for a specific index in the constructor argument list
  * as well as for generic argument matches by type.
- *
+ *持有者的构造函数参数值，通常作为bean定义的一部分。支持
+ * 构造函数参数列表中特定索引的值
+ * 以及按类型的泛型参数匹配。
  * @author Juergen Hoeller
  * @since 09.11.2003
  * @see BeanDefinition#getConstructorArgumentValues
@@ -55,7 +57,8 @@ public class ConstructorArgumentValues {
 
 	/**
 	 * Deep copy constructor.
-	 * @param original the ConstructorArgumentValues to copy
+	 * 深度拷贝构造器
+	 * @param original the ConstructorArgumentValues to copy 需要被拷贝的构造器
 	 */
 	public ConstructorArgumentValues(ConstructorArgumentValues original) {
 		addArgumentValues(original);
@@ -68,6 +71,9 @@ public class ConstructorArgumentValues {
 	 * <p>Note: Identical ValueHolder instances will only be registered once,
 	 * to allow for merging and re-merging of argument value definitions. Distinct
 	 * ValueHolder instances carrying the same content are of course allowed.
+	 * 将所有给定的参数值复制到此对象中，使用单独的持有者实例保持独立于原始对象的值。
+	 * 注意：相同的ValueHolder实例只会被注册一次
+	 * ，以允许合并和重新合并参数值定义。 携带相同内容的不同ValueHolder实例当然是允许的。
 	 */
 	public void addArgumentValues(ConstructorArgumentValues other) {
 		if (other != null) {
@@ -425,6 +431,7 @@ public class ConstructorArgumentValues {
 	/**
 	 * Holder for a constructor argument value, with an optional type
 	 * attribute indicating the target type of the actual constructor argument.
+	 *持有者为一个构造函数参数值，带有一个可选的类型属性，指明实际构造函数参数的目标类型。
 	 */
 	public static class ValueHolder implements BeanMetadataElement {
 
@@ -442,6 +449,7 @@ public class ConstructorArgumentValues {
 
 		/**
 		 * Create a new ValueHolder for the given value.
+		 *为给定的值创建一个新的ValueHolder。
 		 * @param value the argument value
 		 */
 		public ValueHolder(Object value) {
@@ -451,7 +459,7 @@ public class ConstructorArgumentValues {
 		/**
 		 * Create a new ValueHolder for the given value and type.
 		 * @param value the argument value
-		 * @param type the type of the constructor argument
+		 * @param type the type of the constructor argument 构建参数的类型
 		 */
 		public ValueHolder(Object value, String type) {
 			this.value = value;
