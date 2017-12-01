@@ -135,17 +135,17 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Dependency types to ignore on dependency check and autowire, as Set of
 	 * Class objects: for example, String. Default is none.
 	 *
-	 * ²»ÊÇCGlibÉú³ÉµÄÊôĞÔÀàĞÍ,Ò²²»´æÔÚignoredDependencyTypes(¿ÉÅäÖÃµÄ)¼¯ºÏÖĞµÄÊôĞÔÀàĞÍ£¬
-	 * ²¢ÇÒ²»ÊÇºöÂÔ½Ó¿Ú(springËµÊÇ²»ÄÜÊ¹ÓÃ
-	 * springbean¹¤³§ÖĞ½Ó¿Ú×÷ÎªÊôĞÔ£¬±ÈÈçBeanFactoryAware ApplicationContextAware)ÊµÏÖµÄÊôĞÔÖĞ°üº¬ÓĞµÄ·½·¨
-	 * ÕâÀïÌá¼°Ò»ÏÂignoreDependencyInterface()·½·¨µÄÖ÷Òª¹¦ÄÜÊÇºöÂÔ¸ø¶¨½Ó¿ÚµÄ×Ô¶¯×°Åä¹¦ÄÜ£¬ÄÇÃ´ÕâÑù×øµÄÄ¿µÄÊÇÊ²Ã´ÄØ£¿
-	 * »á²úÉúÊ²Ã´ÑùµÄĞ§¹ûÄØ
+	 * ä¸æ˜¯CGlibç”Ÿæˆçš„å±æ€§ç±»å‹,ä¹Ÿä¸å­˜åœ¨ignoredDependencyTypes(å¯é…ç½®çš„)é›†åˆä¸­çš„å±æ€§ç±»å‹ï¼Œ
+	 * å¹¶ä¸”ä¸æ˜¯å¿½ç•¥æ¥å£(springè¯´æ˜¯ä¸èƒ½ä½¿ç”¨
+	 * springbeanå·¥å‚ä¸­æ¥å£ä½œä¸ºå±æ€§ï¼Œæ¯”å¦‚BeanFactoryAware ApplicationContextAware)å®ç°çš„å±æ€§ä¸­åŒ…å«æœ‰çš„æ–¹æ³•
+	 * è¿™é‡ŒæåŠä¸€ä¸‹ignoreDependencyInterface()æ–¹æ³•çš„ä¸»è¦åŠŸèƒ½æ˜¯å¿½ç•¥ç»™å®šæ¥å£çš„è‡ªåŠ¨è£…é…åŠŸèƒ½ï¼Œé‚£ä¹ˆè¿™æ ·åçš„ç›®çš„æ˜¯ä»€ä¹ˆå‘¢ï¼Ÿ
+	 * ä¼šäº§ç”Ÿä»€ä¹ˆæ ·çš„æ•ˆæœå‘¢
 
-	 ¾ÙÀıÀ´Ëµ£¬ÀıÈçaÖĞÓĞÊôĞÔb£¬ÄÇÃ´µ±springÔÚ»ñÈ¡aµÄbeanµÄÊ±ºòÈç¹ûÆä
-	 ÊôĞÔb»¹Ã»ÓĞ³õÊ¼»¯£¬ÄÇÃ´spring»á×Ô¶¯³õÊ¼»¯b£¬ÕâÒ²ÊÇspringÖĞÌá¹©µÄÒ»¸öÖØÒªÌØĞÔ£¬µ«ÊÇÄ³Ğ©Çé¿öÏÂb²»»á±»³õÊ¼»¯£¬
-	 ÆäÖĞµÄÒ»ÖÖÇé¿ö¾ÍÊÇbÊµÏÖÁËbeannameaware½Ó¿Ú¡£springÖĞÊÇÕâÑù½éÉÜµÄ£º×Ô¶¯×°ÅäÊ±ºöÂÔ¸ø¶¨µÄÒÀÀµ½Ó¿Ú£¬
-	 µäĞÍµÄÓ¦ÓÃÊ±Í¨¹ıÆäËü·½Ê½½âÎöapplicatinÉÏÏÂÎÄ×¢²áÒÀÀµ£¬
-	 ÀàËÆÓÚbeanfactoryÍ¨¹ıbeanfactoryAware½øĞĞ´¢Ğî¶î»òÕßappicationContextÍ¨¹ıApplicationContextAware½øĞĞ×¢²á
+	 ä¸¾ä¾‹æ¥è¯´ï¼Œä¾‹å¦‚aä¸­æœ‰å±æ€§bï¼Œé‚£ä¹ˆå½“springåœ¨è·å–açš„beançš„æ—¶å€™å¦‚æœå…¶
+	 å±æ€§bè¿˜æ²¡æœ‰åˆå§‹åŒ–ï¼Œé‚£ä¹ˆspringä¼šè‡ªåŠ¨åˆå§‹åŒ–bï¼Œè¿™ä¹Ÿæ˜¯springä¸­æä¾›çš„ä¸€ä¸ªé‡è¦ç‰¹æ€§ï¼Œä½†æ˜¯æŸäº›æƒ…å†µä¸‹bä¸ä¼šè¢«åˆå§‹åŒ–ï¼Œ
+	 å…¶ä¸­çš„ä¸€ç§æƒ…å†µå°±æ˜¯bå®ç°äº†beannameawareæ¥å£ã€‚springä¸­æ˜¯è¿™æ ·ä»‹ç»çš„ï¼šè‡ªåŠ¨è£…é…æ—¶å¿½ç•¥ç»™å®šçš„ä¾èµ–æ¥å£ï¼Œ
+	 å…¸å‹çš„åº”ç”¨æ—¶é€šè¿‡å…¶å®ƒæ–¹å¼è§£æapplicatinä¸Šä¸‹æ–‡æ³¨å†Œä¾èµ–ï¼Œ
+	 ç±»ä¼¼äºbeanfactoryé€šè¿‡beanfactoryAwareè¿›è¡Œå‚¨è“„é¢æˆ–è€…appicationContexté€šè¿‡ApplicationContextAwareè¿›è¡Œæ³¨å†Œ
 	 */
 	private final Set<Class<?>> ignoredDependencyTypes = new HashSet<Class<?>>();
 
@@ -577,11 +577,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 					if (!actualDependentBeans.isEmpty()) {
 						throw new BeanCurrentlyInCreationException(beanName,
 								"Bean with name '" + beanName + "' has been injected into other beans [" +
-								StringUtils.collectionToCommaDelimitedString(actualDependentBeans) +
-								"] in its raw version as part of a circular reference, but has eventually been " +
-								"wrapped. This means that said other beans do not use the final version of the " +
-								"bean. This is often the result of over-eager type matching - consider using " +
-								"'getBeanNamesOfType' with the 'allowEagerInit' flag turned off, for example.");
+										StringUtils.collectionToCommaDelimitedString(actualDependentBeans) +
+										"] in its raw version as part of a circular reference, but has eventually been " +
+										"wrapped. This means that said other beans do not use the final version of the " +
+										"bean. This is often the result of over-eager type matching - consider using " +
+										"'getBeanNamesOfType' with the 'allowEagerInit' flag turned off, for example.");
 					}
 				}
 			}

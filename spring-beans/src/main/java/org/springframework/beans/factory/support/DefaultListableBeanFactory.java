@@ -140,10 +140,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/** Map of bean definition objects, keyed by bean name */
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64);
 
-	/** Map of singleton and non-singleton bean names, keyed by dependency type */
+	/** Map of singleton and non-singleton bean names, keyed by dependency type  单例和非单例bean名称的映射，由依赖类型键入 */
 	private final Map<Class<?>, String[]> allBeanNamesByType = new ConcurrentHashMap<Class<?>, String[]>(64);
 
-	/** Map of singleton-only bean names, keyed by dependency type */
+	/** Map of singleton-only bean names, keyed by dependency type   单例对象的映射，由依赖类型键入*/
 	private final Map<Class<?>, String[]> singletonBeanNamesByType = new ConcurrentHashMap<Class<?>, String[]>(64);
 
 	/** List of bean definition names, in registration order */
@@ -792,15 +792,18 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/**
 	 * Reset all bean definition caches for the given bean,
 	 * including the caches of beans that are derived from it.
+	 * 重置给定bean的所有bean定义缓存，包括从它派生的bean的缓存
 	 * @param beanName the name of the bean to reset
 	 */
 	protected void resetBeanDefinition(String beanName) {
 		// Remove the merged bean definition for the given bean, if already created.
+		// 如果已经创建了bean，则删除已合并的bean定义
 		clearMergedBeanDefinition(beanName);
 
 		// Remove corresponding bean from singleton cache, if any. Shouldn't usually
 		// be necessary, rather just meant for overriding a context's default beans
 		// (e.g. the default StaticMessageSource in a StaticApplicationContext).
+		// 如果有的话，从单例缓存中删除相应的bean。不应该通常/ /是必要的，而只是用来重写上下文的默认bean
 		destroySingleton(beanName);
 
 		// Reset all bean definitions that have the given bean as parent (recursively).
@@ -836,6 +839,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/**
 	 * Remove any assumptions about by-type mappings.
+	 * 删除任何关于类型映射的假设
 	 */
 	private void clearByTypeCache() {
 		this.allBeanNamesByType.clear();

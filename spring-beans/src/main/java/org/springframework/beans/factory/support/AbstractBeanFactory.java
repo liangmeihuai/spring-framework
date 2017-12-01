@@ -218,10 +218,12 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 	/**
 	 * Return an instance, which may be shared or independent, of the specified bean.
+	 * 返回指定bean的一个实例，它可以是共享的，也可以是独立的
 	 * @param name the name of the bean to retrieve
 	 * @param requiredType the required type of the bean to retrieve
 	 * @param args arguments to use if creating a prototype using explicit arguments to a
 	 * static factory method. It is invalid to use a non-null args value in any other case.
+	 *  如果使用显式参数创建原型，则使用静态工厂方法的参数。在任何其他情况下使用非空args值是无效的
 	 * @param typeCheckOnly whether the instance is obtained for a type check,
 	 * not for actual use
 	 * @return an instance of the bean
@@ -236,6 +238,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		Object bean;
 
 		// Eagerly check singleton cache for manually registered singletons.
+		// 为手动注册的单例对象检查单例缓存
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
 			if (logger.isDebugEnabled()) {
@@ -247,12 +250,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					logger.debug("Returning cached instance of singleton bean '" + beanName + "'");
 				}
 			}
+			// 判断要获得的bean是否实现了FactoryBean,是获得工厂本身还是获得工厂生产的产品
+			//如果要获得工厂本身 beanName就要以&开头
 			bean = getObjectForBeanInstance(sharedInstance, name, beanName, null);
 		}
 
 		else {
 			// Fail if we're already creating this bean instance:
 			// We're assumably within a circular reference.
+			// 下面这个是关于循环依赖的处理
 			if (isPrototypeCurrentlyInCreation(beanName)) {
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
@@ -271,7 +277,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					return parentBeanFactory.getBean(nameToLookup, requiredType);
 				}
 			}
-
+			// typeCheckOnly参数 调用是就是false
+			// 标明这个beanname已经被创建了
+			// 后面会用到
 			if (!typeCheckOnly) {
 				markBeanAsCreated(beanName);
 			}
@@ -1060,6 +1068,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/**
 	 * Return the bean name, stripping out the factory dereference prefix if necessary,
 	 * and resolving aliases to canonical names.
+	 * 返回bean名称，如果需要，删除工厂的dereference前缀，并将别名解析为规范名称
 	 * @param name the user-specified name
 	 * @return the transformed bean name
 	 */

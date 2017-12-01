@@ -74,7 +74,9 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Internal marker for a null singleton object:
+	 * 一个null singleton对象的内部标记
 	 * used as marker value for concurrent Maps (which don't support null values).
+	 * 作为并发映射的标记值(并发映射不支持null值)
 	 */
 	protected static final Object NULL_OBJECT = new Object();
 
@@ -175,6 +177,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Return the (raw) singleton object registered under the given name.
+	 * 返回在给定名称下注册的(原始)单例对象
 	 * <p>Checks already instantiated singletons and also allows for an early
 	 * reference to a currently created singleton (resolving a circular reference).
 	 * @param beanName the name of the bean to look for

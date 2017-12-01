@@ -1480,7 +1480,7 @@ public class BeanDefinitionParserDelegate {
 		String namespaceUri = getNamespaceURI(node);
 		if (!isDefaultNamespace(namespaceUri)) {
 			NamespaceHandler handler = this.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);
-			if (handler != null) {
+			if (handler != null) {// handler不为空，说明有自定义的标签需要解析
 				return handler.decorate(node, originalDef, new ParserContext(this.readerContext, this, containingBd));
 			}
 			else if (namespaceUri != null && namespaceUri.startsWith("http://www.springframework.org/")) {

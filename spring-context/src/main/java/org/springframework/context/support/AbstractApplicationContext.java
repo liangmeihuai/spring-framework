@@ -1268,13 +1268,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	/**
 	 * Subclasses must return their internal bean factory here. They should implement the
 	 * lookup efficiently, so that it can be called repeatedly without a performance penalty.
+	 * 子类必须返回其内部的bean工厂。它们应该有效地实现查找，这样就可以反复调用它，而不需要执行性能惩罚
 	 * <p>Note: Subclasses should check whether the context is still active before
 	 * returning the internal bean factory. The internal factory should generally be
 	 * considered unavailable once the context has been closed.
+	 * 在返回内部bean工厂之前，子类应该检查上下文是否仍处于活动状态。如果上下文已经关闭，
+	 * 内部工厂通常应该被认为是不可用的
 	 * @return this application context's internal bean factory (never {@code null})
 	 * @throws IllegalStateException if the context does not hold an internal bean factory yet
 	 * (usually if {@link #refresh()} has never been called) or if the context has been
 	 * closed already
+	 * 如果上下文没有保存一个内部bean工厂(通常是如果{@ link #刷新()}没有被调用)，或者上下文已经关闭了
 	 * @see #refreshBeanFactory()
 	 * @see #closeBeanFactory()
 	 */

@@ -79,13 +79,13 @@ public class DelegatingEntityResolver implements EntityResolver {
 	@Override
 	public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
 		if (systemId != null) {
-			// Èç¹ûÊÇDTD´ÓÕâÀï¿ªÊ¼
+			// å¦‚æœæ˜¯DTDä»è¿™é‡Œå¼€å§‹
 			if (systemId.endsWith(DTD_SUFFIX)) {
 				return this.dtdResolver.resolveEntity(publicId, systemId);
 			}
-			// Èç¹ûÊÇXSD´ÓÕâÀï¿ªÊ¼
+			// å¦‚æœæ˜¯XSDä»è¿™é‡Œå¼€å§‹
 			else if (systemId.endsWith(XSD_SUFFIX)) {
-				// Í¨¹ıµ÷ÓÃMETA-INF/Spring.schemas½âÎö
+				// é€šè¿‡è°ƒç”¨META-INF/Spring.schemasè§£æ
 				return this.schemaResolver.resolveEntity(publicId, systemId);
 			}
 		}
